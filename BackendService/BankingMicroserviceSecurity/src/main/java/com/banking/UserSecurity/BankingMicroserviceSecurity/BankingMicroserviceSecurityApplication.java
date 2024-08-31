@@ -10,25 +10,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 @SpringBootApplication
-public class BankingMicroserviceSecurityApplication implements CommandLineRunner {
-
-	@Autowired
-	private UserRepository userRepository;
-
+public class BankingMicroserviceSecurityApplication{
 	public static void main(String[] args) {
 		SpringApplication.run(BankingMicroserviceSecurityApplication.class, args);
 	}
-	public void run(String... args){
-		User adminAccount = userRepository.findByRole(Role.ADMIN);
-		if(null == adminAccount){
-			User user = new User();
-			user.setEmail("admin@gmail.com");
-			user.setFirstname("admin");
-			user.setLastname("admin");
-			user.setRole(Role.ADMIN);
-			user.setPassword(new BCryptPasswordEncoder().encode("admin"));
-			userRepository.save(user);
-		}
-	}
-
 }
