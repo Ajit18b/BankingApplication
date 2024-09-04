@@ -1,0 +1,32 @@
+.profile-container {
+  margin: 20px auto;
+  max-width: 500px;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.profile-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.profile-table td {
+  padding: 8px;
+  border-bottom: 1px solid #ddd;
+}
+
+.profile-table tr:last-child td {
+  border-bottom: none;
+}
+
+.profile-table td strong {
+  color: #333;
+}
+h2 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+  text-align: center; /* Center align the h2 element */
+}

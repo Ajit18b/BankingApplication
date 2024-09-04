@@ -6,6 +6,7 @@
       <list>
         <option value="$PROJECT_DIR$/BankingMicroserviceMain/pom.xml" />
         <option value="$PROJECT_DIR$/BankingMicroserviceSecurity/pom.xml" />
+        <option value="$PROJECT_DIR$/OTP/pom.xml" />
       </list>
     </option>
   </component>

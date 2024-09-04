@@ -1,20 +1,15 @@
 package com.banking.UserSecurity.BankingMicroserviceSecurity.controller;
 
-import com.banking.UserSecurity.BankingMicroserviceSecurity.dto.JwtAuthenticationResponse;
-import com.banking.UserSecurity.BankingMicroserviceSecurity.dto.RefreshTokenRequest;
-import com.banking.UserSecurity.BankingMicroserviceSecurity.dto.SignUpRequest;
-import com.banking.UserSecurity.BankingMicroserviceSecurity.dto.SigninRequest;
+import com.banking.UserSecurity.BankingMicroserviceSecurity.dto.*;
 import com.banking.UserSecurity.BankingMicroserviceSecurity.entities.User;
 import com.banking.UserSecurity.BankingMicroserviceSecurity.services.AuthenticationService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Collections;
 
 @RestController
 @RequestMapping("/api/v1/auth")
@@ -36,6 +31,21 @@ public class AuthenticationController {
         }
     }
 
+    @PostMapping("/check-email")
+    public ResponseEntity<?> emailCheck(@RequestBody EmailCheckRequest emailCheckRequest) {
+        try {
+            boolean emailExists = authenticationService.emailCheck(emailCheckRequest);
+
+            if (emailExists) {
+                return ResponseEntity.ok(Collections.singletonMap("message", "Email exists"));
+            } else {
+                return ResponseEntity.status(HttpStatus.NOT_FOUND).body(Collections.singletonMap("message", "Email does not exist"));
+            }
+        } catch (Exception ex) {
+            // Handle unexpected exceptions
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(Collections.singletonMap("message", "An error occurred: " + ex.getMessage()));
+        }
+    }
 
 
     @PostMapping("/signin")
@@ -55,4 +65,6 @@ public class AuthenticationController {
     public ResponseEntity<JwtAuthenticationResponse> refresh(@RequestBody RefreshTokenRequest refreshTokenRequest) {
         return ResponseEntity.ok(authenticationService.refreshToken(refreshTokenRequest));
     }
+
+
 }

@@ -1,9 +1,6 @@
 package com.banking.UserSecurity.BankingMicroserviceSecurity.services.impl;
 
-import com.banking.UserSecurity.BankingMicroserviceSecurity.dto.JwtAuthenticationResponse;
-import com.banking.UserSecurity.BankingMicroserviceSecurity.dto.RefreshTokenRequest;
-import com.banking.UserSecurity.BankingMicroserviceSecurity.dto.SignUpRequest;
-import com.banking.UserSecurity.BankingMicroserviceSecurity.dto.SigninRequest;
+import com.banking.UserSecurity.BankingMicroserviceSecurity.dto.*;
 import com.banking.UserSecurity.BankingMicroserviceSecurity.entities.Role;
 import com.banking.UserSecurity.BankingMicroserviceSecurity.entities.User;
 import com.banking.UserSecurity.BankingMicroserviceSecurity.repository.UserRepository;
@@ -47,6 +44,12 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         user.setPassword(passwordEncoder.encode(signUpRequest.getPassword()));
         return userRepository.save(user);
     }
+
+    public boolean emailCheck(EmailCheckRequest emailCheckRequest) {
+        return userRepository.findByEmail(emailCheckRequest.getEmail()).isPresent();
+    }
+
+
 
     public JwtAuthenticationResponse signin(SigninRequest signinRequest) {
         // Authenticate the user with the provided email and password
@@ -97,5 +100,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         // If the token is invalid, return null or handle accordingly
         return null;
     }
+
+
 
 }

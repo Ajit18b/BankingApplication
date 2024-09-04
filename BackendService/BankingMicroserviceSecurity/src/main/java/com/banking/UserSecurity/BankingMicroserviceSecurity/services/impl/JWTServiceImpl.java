@@ -1,5 +1,6 @@
 package com.banking.UserSecurity.BankingMicroserviceSecurity.services.impl;
 
+import com.banking.UserSecurity.BankingMicroserviceSecurity.entities.User;
 import com.banking.UserSecurity.BankingMicroserviceSecurity.services.JWTService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
@@ -18,22 +19,34 @@ import java.util.function.Function;
 @Service
 public class JWTServiceImpl implements JWTService {
     public String generateToken(UserDetails userDetails, String userType) {
+        // Cast userDetails to User to access the first name and last name
+        User user = (User) userDetails;
+        String fullName = user.getFirstname() + " " + user.getLastname();
+
         return Jwts.builder()
                 .setSubject(userDetails.getUsername())
                 .claim("userType", userType)  // Add user type as a custom claim
+                .claim("fullName", fullName)  // Add full name as a custom claim
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 * 24))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 *30))
                 .signWith(getSiginKey(), SignatureAlgorithm.HS256)
                 .compact();
     }
 
+
     public String generateRefreshToken(Map<String, Object> extraClaims, UserDetails userDetails, String userType) {
+        // Cast userDetails to User to access the first name and last name
+        User user = (User) userDetails;
+        String fullName = user.getFirstname() + " " + user.getLastname();
+
         extraClaims.put("userType", userType);  // Add user type to extra claims
+        extraClaims.put("fullName", fullName);  // Add full name to extra claims
+
         return Jwts.builder()
                 .setClaims(extraClaims)
                 .setSubject(userDetails.getUsername())
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 604800000))
+                .setExpiration(new Date(System.currentTimeMillis() + 604800000)) // 7 days
                 .signWith(getSiginKey(), SignatureAlgorithm.HS256)
                 .compact();
     }

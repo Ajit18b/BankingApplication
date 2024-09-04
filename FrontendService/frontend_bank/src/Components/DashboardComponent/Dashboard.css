@@ -1,0 +1,28 @@
+.dashboard {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+}
+
+.dashboard-content {
+  flex-grow: 1;
+  padding-top: 60px; /* Adjust this value based on the height of your header */
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
+.dashboard-message {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+.dashboard-message h2 {
+  font-size: 24px;
+  margin-bottom: 10px;
+}
+
+.dashboard-message p {
+  font-size: 16px;
+  color: #666;
+}
