@@ -1,12 +1,12 @@
 .admin-controls {
   margin: 90px auto; /* Center the container horizontally */
-  max-width: 1000px; /* Limit the maximum width */
+  max-width: 600px; /* Limit the maximum width */
   min-height: 50vh;
-  
   background-color: #f9f9f9; /* Light background color */
   padding: 20px; /* Add padding inside the container */
   border-radius: 8px; /* Round the corners */
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+  font-family: Arial, sans-serif; /* Font family */
 }
 
 .admin-controls h1 {
@@ -14,4 +14,59 @@
   font-size: 24px; /* Set the font size */
   color: #333; /* Set the text color */
   text-align: center; /* Center align the h1 element */
+}
+
+form {
+  display: flex;
+  flex-direction: column; /* Stack form elements vertically */
+  gap: 15px; /* Space between form elements */
+}
+
+label {
+  font-size: 16px; /* Font size for labels */
+  color: #555; /* Label color */
+}
+
+input[type="email"] {
+  padding: 10px; /* Padding inside input */
+  border: 1px solid #ccc; /* Border color */
+  border-radius: 4px; /* Rounded corners */
+  font-size: 16px; /* Font size */
+  width: 100%; /* Full width */
+  box-sizing: border-box; /* Include padding and border in element's total width and height */
+}
+
+button {
+  padding: 10px 20px; /* Padding inside button */
+  border: none; /* Remove default border */
+  border-radius: 4px; /* Rounded corners */
+  background-color: #007bff; /* Button background color */
+  color: #fff; /* Button text color */
+  font-size: 16px; /* Font size */
+  cursor: pointer; /* Pointer cursor on hover */
+  transition: background-color 0.3s; /* Smooth background color transition */
+}
+
+button:hover {
+  background-color: #0056b3; /* Darker background color on hover */
+}
+
+.response-message {
+  margin-top: 20px; /* Space above the response message */
+  padding: 15px; /* Padding inside the response message box */
+  border: 1px solid #ddd; /* Border color */
+  border-radius: 4px; /* Rounded corners */
+  font-size: 16px; /* Font size */
+}
+
+.response-message.success {
+  background-color: #d4edda; /* Light green background for success */
+  color: #155724; /* Dark green text for success */
+  border-color: #c3e6cb; /* Border color for success */
+}
+
+.response-message.error {
+  background-color: #f8d7da; /* Light red background for error */
+  color: #721c24; /* Dark red text for error */
+  border-color: #f5c6cb; /* Border color for error */
 }

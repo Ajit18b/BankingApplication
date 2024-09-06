@@ -4,10 +4,6 @@ body {
   font-family: Arial, sans-serif;
 }
 
-
-
-
-
 .auth-container {
   display: flex;
   flex-direction: column;

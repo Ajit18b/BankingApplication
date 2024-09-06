@@ -7,17 +7,21 @@
         <sourceOutputDir name="target/generated-sources/annotations" />
         <sourceTestOutputDir name="target/generated-test-sources/test-annotations" />
         <outputRelativeToContentRoot value="true" />
-        <module name="BankingMicroserviceSecurity" />
         <module name="OTP" />
         <module name="BankingMicroserviceMain" />
+        <module name="BankingMicroserviceSecurity" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="UserBankAccountBase" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">
       <module name="BankingMicroserviceMain" options="-parameters" />
       <module name="BankingMicroserviceSecurity" options="-parameters" />
       <module name="OTP" options="-parameters" />
+      <module name="UserBankAccountBase" options="-parameters" />
     </option>
   </component>
 </project>
