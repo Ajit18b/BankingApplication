@@ -1,0 +1,54 @@
+.bank-account-details {
+    margin: 50px auto;
+    max-width: 600px;
+    background-color: #f9f9f9;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    font-family: Arial, sans-serif;
+}
+
+.bank-account-details h1 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+}
+
+.account-details {
+    margin: 10px 0;
+}
+
+.account-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 18px;
+}
+
+.account-table td {
+    padding: 10px;
+    border: 1px solid #ccc; /* Add border to table cells */
+}
+
+.account-table td:first-child {
+    font-weight: bold;
+    color: #555;
+}
+
+.account-table td:last-child {
+    padding-left: 20px;
+}
+
+.error-message {
+    color: #721c24;
+    background-color: #f8d7da;
+    padding: 10px;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.message {
+    text-align: center;
+    font-size: 18px;
+    color: #007bff;
+}

@@ -4,8 +4,10 @@ import Dashboard from "./Components/DashboardComponent/Dashboard";
 import AuthComponent from "./Auth/AuthComponent";
 import Home from "./Components/DashboardComponent/ChildComponents/Home/Home";
 import Profile from "./Components/DashboardComponent/ChildComponents/Profile/Profile";
-import AdminControls from "./Components/DashboardComponent/ChildComponents/AdminControls/AdminControls";
+import AdminControlsAccountCreation from "./Components/DashboardComponent/ChildComponents/AdminControls/AdminControlsAccountCreation";
 import PrivateRoute from "./PrivateRoute";
+import AdminControlsAllAccountList from "./Components/DashboardComponent/ChildComponents/AdminControls/AdminControlsAllAccountList";
+import BankAccountDetails from "./Components/DashboardComponent/ChildComponents/BankAccountDetails/BankAccountDetails";
 
 function App() {
   return (
@@ -22,13 +24,22 @@ function App() {
         >
           <Route path="home" element={<Home />} />
           <Route path="profile" element={<Profile />} />
+          <Route path="BankAccountDetails" element={<BankAccountDetails/>}/>
           <Route
-            path="admin"
+            path="adminAccountCreation"
             element={
               <PrivateRoute allowedRoles={["ADMIN"]}>
-                <AdminControls />
+                <AdminControlsAccountCreation />
               </PrivateRoute>
             }
+          />
+          <Route
+           path="adminAccountAllAccountList"
+           element={
+            <PrivateRoute allowedRoles={["ADMIN"]}>
+              <AdminControlsAllAccountList />
+            </PrivateRoute>
+          }
           />
         </Route>
       </Routes>

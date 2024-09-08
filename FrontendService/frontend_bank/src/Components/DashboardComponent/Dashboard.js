@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { Navigate, Outlet, useLocation } from "react-router-dom";
-import { jwtDecode } from "jwt-decode";
+import {jwtDecode} from "jwt-decode";
 import Header from "./../HeaderComponent/Header";
 import "./Dashboard.css";
 
@@ -54,15 +54,17 @@ const Dashboard = () => {
       <main className="dashboard-content">
         {isDashboardRoute && (
           <div
-            className="dashboard-message"
+            className="dashboard-message-container"
             role="region"
             aria-labelledby="dashboard-message-heading"
           >
-            <h2 id="dashboard-message-heading">Welcome to your Dashboard!</h2>
-            <p>
-              Manage your settings, view reports, and track your progress all in
-              one place.
-            </p>
+            <div className="dashboard-message">
+              <h2 id="dashboard-message-heading">Welcome to your Dashboard!</h2>
+              <p>
+                Manage your settings, view reports, and track your progress all in
+                one place.
+              </p>
+            </div>
           </div>
         )}
         <Outlet /> {/* Render nested routes here */}

@@ -19,7 +19,8 @@ public class BankAccountService {
         this.repository = repository;
     }
 
-    public BankAccount createBankAccount(String email) {
+    // Create bank account with name and email
+    public BankAccount createBankAccount(String name, String email) {
         if (repository.existsByEmail(email)) {
             throw new IllegalArgumentException("Email already registered");
         }
@@ -30,6 +31,7 @@ public class BankAccountService {
         } while (repository.existsByAccountNumber(accountNumber));
 
         BankAccount bankAccount = new BankAccount();
+        bankAccount.setName(name);  // Set name
         bankAccount.setEmail(email);
         bankAccount.setAccountNumber(accountNumber);
 

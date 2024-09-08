@@ -27,6 +27,7 @@ label {
   color: #555; /* Label color */
 }
 
+input[type="text"],
 input[type="email"] {
   padding: 10px; /* Padding inside input */
   border: 1px solid #ccc; /* Border color */
@@ -69,4 +70,28 @@ button:hover {
   background-color: #f8d7da; /* Light red background for error */
   color: #721c24; /* Dark red text for error */
   border-color: #f5c6cb; /* Border color for error */
+}
+
+.response-table {
+  width: 100%;
+  margin-top: 10px;
+  border-collapse: collapse;
+}
+
+.response-table td {
+  padding: 8px 12px;
+  border: 1px solid #ccc; /* Thin border */
+  vertical-align: top;
+}
+
+/* Left-align both the first and second columns */
+.response-table td:first-child, .response-table td:last-child {
+  text-align: left;
+  width: 50%;
+  font-weight: bold; /* Keeps field names bold */
+}
+
+/* Optionally, remove the bold for data values */
+.response-table td:last-child {
+  font-weight: normal;
 }

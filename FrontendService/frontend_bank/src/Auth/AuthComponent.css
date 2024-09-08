@@ -24,13 +24,13 @@ body {
   font-size: 16px;
   cursor: pointer;
   border: 1px solid #ddd;
-  background-color: #f5f5f5;
+  background-color: #013759;
   border-radius: 5px;
   transition: background-color 0.3s, color 0.3s;
 }
 
 .auth-toggle button.active {
-  background-color: #007bff;
+  background-color: #278dfa;
   color: white;
 }
 

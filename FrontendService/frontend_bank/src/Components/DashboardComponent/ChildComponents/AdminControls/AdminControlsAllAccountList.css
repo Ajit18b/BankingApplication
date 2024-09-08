@@ -1,0 +1,84 @@
+.admin-account-list {
+  margin: 90px auto;
+  max-width: 800px;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+.admin-account-list h1 {
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+  text-align: center;
+}
+
+.search-bar {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 20px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.error-message {
+  color: #721c24;
+  background-color: #f8d7da;
+  padding: 10px;
+  border-radius: 4px;
+  text-align: center;
+}
+
+.accounts-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.accounts-table th, .accounts-table td {
+  padding: 10px;
+  border: 1px solid #ccc;
+  text-align: left;
+}
+
+.accounts-table th {
+  background-color: #f2f2f2;
+  font-weight: bold;
+}
+
+.accounts-table td {
+  background-color: #fff;
+}
+
+.accounts-table tr:nth-child(even) {
+  background-color: #f9f9f9;
+}
+
+.no-results {
+  text-align: center;
+  color: #888;
+}
+
+button {
+  padding: 5px 10px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+.download-all-button {
+  margin-bottom: 20px;
+  display: block;
+  width: 100%;
+}

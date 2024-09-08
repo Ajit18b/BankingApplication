@@ -23,13 +23,15 @@ public class UserController {
     /**
      * Retrieves the bank account for the authenticated user.
      * @param request JSON object containing the email.
-     * @return BankAccount object if found, else 404 Not Found.
+     * @return BankAccountResponse object if found, else 404 Not Found.
      */
     @PostMapping("/account")
     public ResponseEntity<BankAccountResponse> getBankAccountByEmail(@RequestBody EmailRequest request) {
         Optional<BankAccount> bankAccount = bankAccountService.findBankAccountByEmail(request.getEmail());
         if (bankAccount.isPresent()) {
-            return ResponseEntity.ok(new BankAccountResponse(bankAccount.get().getAccountNumber()));
+            BankAccount account = bankAccount.get();
+            BankAccountResponse response = new BankAccountResponse(account.getAccountNumber(), account.getName());
+            return ResponseEntity.ok(response);
         } else {
             return ResponseEntity.notFound().build();
         }
@@ -51,9 +53,11 @@ public class UserController {
     // Inner class for bank account response
     public static class BankAccountResponse {
         private String accountNumber;
+        private String name;
 
-        public BankAccountResponse(String accountNumber) {
+        public BankAccountResponse(String accountNumber, String name) {
             this.accountNumber = accountNumber;
+            this.name = name;
         }
 
         public String getAccountNumber() {
@@ -62,6 +66,14 @@ public class UserController {
 
         public void setAccountNumber(String accountNumber) {
             this.accountNumber = accountNumber;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
         }
     }
 }

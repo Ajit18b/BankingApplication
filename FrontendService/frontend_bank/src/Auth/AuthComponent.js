@@ -95,7 +95,7 @@ const AuthComponent = () => {
         return;
       }
 
-      const response = await fetch("http://192.168.4.170:8090/api/otp/send", {
+      const response = await fetch("http://localhost:8090/api/otp/send", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -130,7 +130,7 @@ const AuthComponent = () => {
     setShowSpinner(true); // Show spinner during OTP verification
 
     try {
-      const response = await fetch("http://192.168.4.170:8090/api/otp/verify", {
+      const response = await fetch("http://localhost:8090/api/otp/verify", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

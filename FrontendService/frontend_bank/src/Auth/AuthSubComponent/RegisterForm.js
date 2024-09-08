@@ -103,7 +103,7 @@ const RegisterForm = ({
     setIsLoading(true); // Show the spinner while sending OTP
 
     try {
-      const response = await fetch("http://192.168.4.170:8090/api/otp/send", {
+      const response = await fetch("http://localhost:8090/api/otp/send", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -136,7 +136,7 @@ const RegisterForm = ({
     setIsLoading(true); // Show the spinner while verifying OTP
 
     try {
-      const response = await fetch("http://192.168.4.170:8090/api/otp/verify", {
+      const response = await fetch("http://localhost:8090/api/otp/verify", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
