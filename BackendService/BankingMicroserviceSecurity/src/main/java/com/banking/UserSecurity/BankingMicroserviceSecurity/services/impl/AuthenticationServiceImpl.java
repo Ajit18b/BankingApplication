@@ -100,7 +100,4 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         // If the token is invalid, return null or handle accordingly
         return null;
     }
-
-
-
 }

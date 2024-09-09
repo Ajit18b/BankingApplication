@@ -1,27 +1,26 @@
 .admin-account-list {
-  margin: 90px auto;
-  max-width: 800px;
-  background-color: #f9f9f9;
-  padding: 20px;
+  margin: 20px auto;
+  max-width: 100%;
+  padding: 10px;
   border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   font-family: Arial, sans-serif;
 }
 
 .admin-account-list h1 {
-  margin-bottom: 20px;
-  font-size: 24px;
-  color: #333;
+  margin-bottom: 15px;
+  font-size: 20px;
+  color: #fefefe;
   text-align: center;
 }
 
 .search-bar {
-  width: 100%;
+  width: calc(100% - 20px);
   padding: 10px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   border: 1px solid #ccc;
   border-radius: 4px;
-  font-size: 16px;
+  font-size: 14px;
   box-sizing: border-box;
 }
 
@@ -38,10 +37,12 @@
   border-collapse: collapse;
 }
 
-.accounts-table th, .accounts-table td {
-  padding: 10px;
+.accounts-table th,
+.accounts-table td {
+  padding: 8px;
   border: 1px solid #ccc;
   text-align: left;
+  font-size: 14px;
 }
 
 .accounts-table th {
@@ -63,7 +64,7 @@
 }
 
 button {
-  padding: 5px 10px;
+  padding: 8px 12px;
   background-color: #007bff;
   color: white;
   border: none;
@@ -78,7 +79,29 @@ button:hover {
 }
 
 .download-all-button {
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   display: block;
   width: 100%;
+}
+
+/* Media Query for Mobile Devices */
+@media (max-width: 600px) {
+  .admin-account-list h1 {
+    font-size: 18px;
+  }
+
+  .search-bar {
+    font-size: 12px;
+  }
+
+  .accounts-table th,
+  .accounts-table td {
+    padding: 6px;
+    font-size: 12px;
+  }
+
+  button {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
 }

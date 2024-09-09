@@ -41,11 +41,15 @@ const AdminControlsAllAccountList = () => {
 
   // Filter accounts when the search term changes
   useEffect(() => {
-    const results = accounts.filter((account) =>
-      account.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      account.email.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      account.accountNumber.includes(searchTerm)
-    );
+    const results = accounts.filter((account) => {
+      const name = account.name ? account.name.toLowerCase() : ""; // Handle null/undefined names
+      const email = account.email ? account.email.toLowerCase() : ""; // Handle null/undefined emails
+      return (
+        name.includes(searchTerm.toLowerCase()) ||
+        email.includes(searchTerm.toLowerCase()) ||
+        account.accountNumber.includes(searchTerm)
+      );
+    });
     setFilteredAccounts(results);
   }, [searchTerm, accounts]);
 
@@ -99,6 +103,15 @@ const AdminControlsAllAccountList = () => {
         value={searchTerm}
         onChange={(e) => setSearchTerm(e.target.value)} // Update search term on input change
       />
+      {/* Button to download all accounts PDF */}
+      {filteredAccounts.length > 0 && (
+        <button
+          onClick={generateAllAccountsPdf}
+          className="download-all-button"
+        >
+          Download All Accounts as PDF
+        </button>
+      )}
       {error ? (
         <p className="error-message">{error}</p>
       ) : (
@@ -138,13 +151,6 @@ const AdminControlsAllAccountList = () => {
               )}
             </tbody>
           </table>
-
-          {/* Button to download all accounts PDF */}
-          {filteredAccounts.length > 0 && (
-            <button onClick={generateAllAccountsPdf} className="download-all-button">
-              Download All Accounts as PDF
-            </button>
-          )}
         </>
       )}
     </div>

@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import {jwtDecode} from "jwt-decode";
-import "./BankAccountDetails.css"; 
+import { jwtDecode } from "jwt-decode";
+import "./BankAccountDetails.css";
 
 const BankAccountDetails = () => {
   const [account, setAccount] = useState(null);
+  const [balance, setBalance] = useState(null); // New state for account balance
   const [error, setError] = useState(null);
   const [isUser, setIsUser] = useState(true); // Assume user by default, adjust if needed
 
@@ -40,6 +41,17 @@ const BankAccountDetails = () => {
         );
         setAccount(response.data);
         setError(null);
+
+        // Fetch the account balance using the account number
+        const balanceResponse = await axios.get(
+          `http://localhost:8100/api/accounts/${response.data.accountNumber}`,
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
+        );
+        setBalance(balanceResponse.data.totalAmount);
       } catch (err) {
         console.error("Error fetching account details:", err);
         setError("Failed to load account details");
@@ -50,7 +62,9 @@ const BankAccountDetails = () => {
   }, []);
 
   if (!isUser) {
-    return <div className="message">Hi Admin, please check all account details.</div>;
+    return (
+      <div className="message">Hi Admin, please check all account details.</div>
+    );
   }
 
   return (
@@ -63,16 +77,28 @@ const BankAccountDetails = () => {
           <table className="account-table">
             <tbody>
               <tr>
-                <td><strong>Name:</strong></td>
+                <td>
+                  <strong>Name:</strong>
+                </td>
                 <td>{account.name}</td>
               </tr>
               <tr>
-                <td><strong>Account Number:</strong></td>
+                <td>
+                  <strong>Account Number:</strong>
+                </td>
                 <td>{account.accountNumber}</td>
               </tr>
               <tr>
-                <td><strong>IFSC Code:</strong></td>
+                <td>
+                  <strong>IFSC Code:</strong>
+                </td>
                 <td>GRM006038</td>
+              </tr>
+              <tr>
+                <td>
+                  <strong>Account Balance:</strong>
+                </td>
+                <td>{balance !== null ? `₹${balance}` : "Loading..."}</td>
               </tr>
             </tbody>
           </table>

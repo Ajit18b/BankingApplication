@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import {jwtDecode} from "jwt-decode"; // Correct import
+import { jwtDecode } from "jwt-decode"; // Correct import
 import "./Header.css";
 
 const Header = () => {
@@ -63,11 +63,18 @@ const Header = () => {
           </li>
           {/* Conditionally render Bank Accounts link based on userType */}
           {userType !== "ADMIN" && (
-            <li>
-              <Link to="BankAccountDetails" onClick={toggleSidebar}>
-                Bank Accounts
-              </Link>
-            </li>
+            <>
+              <li>
+                <Link to="BankAccountDetails" onClick={toggleSidebar}>
+                  Bank Accounts
+                </Link>
+              </li>
+              <li>
+                <Link to="TransactionDetails" onClick={toggleSidebar}>
+                  Transaction Details
+                </Link>
+              </li>
+            </>
           )}
           {/* Conditionally render admin nav if userType is ADMIN */}
           {userType === "ADMIN" && (

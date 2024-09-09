@@ -1,6 +1,6 @@
 /* Header container styling */
 .header {
-  background-color: #333;
+  background-color: #0162e1d8;
   color: white;
   position: fixed;
   top: 0;
@@ -38,19 +38,24 @@
 
 /* Logout button styling */
 .logout-button {
-  background: none;
-  border: none;
-  color: white;
-  font-size: 18px;
-  cursor: pointer;
-  margin-left: auto;
-  margin-right: 20px;
+  background: none; /* No background color initially */
+  border: 2px solid white; /* White border */
+  color: white; /* Text color */
+  font-size: 18px; /* Font size */
+  cursor: pointer; /* Pointer cursor on hover */
+  margin-left: auto; /* Aligns the button to the right */
+  margin-right: 20px; /* Right margin */
+  padding: 10px 20px; /* Padding for the button */
+  border-radius: 5px; /* Rounded corners */
+  transition: background-color 0.3s, color 0.3s; /* Smooth transition */
 }
 
 /* Logout button hover effect */
 .logout-button:hover {
-  text-decoration: underline;
+  background-color: rgba(255, 255, 255, 0.774); /* Light background on hover */
+  color: black; /* Change text color on hover for contrast */
 }
+
 
 /* Sidebar styling */
 .sidebar {
@@ -59,7 +64,7 @@
   left: -100%;
   width: 250px;
   height: 100%;
-  background-color: #444;
+  background-color: #0162e1;
   padding: 60px 20px;
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
   transition: left 0.3s ease;

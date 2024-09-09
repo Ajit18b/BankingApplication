@@ -8,6 +8,8 @@ import AdminControlsAccountCreation from "./Components/DashboardComponent/ChildC
 import PrivateRoute from "./PrivateRoute";
 import AdminControlsAllAccountList from "./Components/DashboardComponent/ChildComponents/AdminControls/AdminControlsAllAccountList";
 import BankAccountDetails from "./Components/DashboardComponent/ChildComponents/BankAccountDetails/BankAccountDetails";
+import "./App.css";
+import TransactionDetails from "./Components/DashboardComponent/ChildComponents/TransactionDetails/TransactionDetails";
 
 function App() {
   return (
@@ -15,18 +17,20 @@ function App() {
       <Routes>
         <Route path="/" element={<AuthComponent />} />
         <Route
-          path="/dashboard"
+          path="/"
           element={
             <PrivateRoute allowedRoles={["USER", "ADMIN"]}>
               <Dashboard />
             </PrivateRoute>
           }
         >
-          <Route path="home" element={<Home />} />
-          <Route path="profile" element={<Profile />} />
-          <Route path="BankAccountDetails" element={<BankAccountDetails/>}/>
+          <Route path="/dashboard" />
+          <Route path="/home" element={<Home />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/BankAccountDetails" element={<BankAccountDetails />} />
+          <Route path="/TransactionDetails" element={<TransactionDetails />} />
           <Route
-            path="adminAccountCreation"
+            path="/adminAccountCreation"
             element={
               <PrivateRoute allowedRoles={["ADMIN"]}>
                 <AdminControlsAccountCreation />
@@ -34,12 +38,12 @@ function App() {
             }
           />
           <Route
-           path="adminAccountAllAccountList"
-           element={
-            <PrivateRoute allowedRoles={["ADMIN"]}>
-              <AdminControlsAllAccountList />
-            </PrivateRoute>
-          }
+            path="/adminAccountAllAccountList"
+            element={
+              <PrivateRoute allowedRoles={["ADMIN"]}>
+                <AdminControlsAllAccountList />
+              </PrivateRoute>
+            }
           />
         </Route>
       </Routes>

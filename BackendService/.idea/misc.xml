@@ -8,6 +8,7 @@
         <option value="$PROJECT_DIR$/BankingMicroserviceSecurity/pom.xml" />
         <option value="$PROJECT_DIR$/OTP/pom.xml" />
         <option value="$PROJECT_DIR$/UserBankAccountBase/pom.xml" />
+        <option value="$PROJECT_DIR$/AccountTransactions/pom.xml" />
       </list>
     </option>
     <option name="ignoredFiles">

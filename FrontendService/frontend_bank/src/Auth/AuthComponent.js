@@ -244,7 +244,7 @@ const AuthComponent = () => {
 
   return (
     <div className="auth-container">
-      <h1>ONLINE BANKING PORTAL</h1>
+      <h1 className="styled-heading">ONLINE BANKING PORTAL</h1>
       {showPopup && (
         <SuccessPopup
           message="Registration successful!"
