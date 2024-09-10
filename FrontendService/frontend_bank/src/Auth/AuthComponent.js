@@ -186,7 +186,7 @@ const AuthComponent = () => {
       localStorage.setItem("token", data.token);
       localStorage.setItem("refreshToken", data.refreshToken);
       setLoginMessage("Login successful. Redirecting...");
-      navigate("/dashboard", { replace: true });
+      navigate("/home", { replace: true });
     } catch (err) {
       setLoginError(err.message || "Failed to login");
     } finally {

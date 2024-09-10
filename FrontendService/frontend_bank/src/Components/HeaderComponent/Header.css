@@ -35,6 +35,14 @@
   font-size: 30px;
   cursor: pointer;
 }
+/* profile */
+.profile{
+  background: none; /* No background color initially */
+  color: white; /* Text color */
+  cursor: pointer; /* Pointer cursor on hover */
+  margin-right: -1150px; /* Right margin */
+  margin-left: auto;
+}
 
 /* Logout button styling */
 .logout-button {
@@ -49,6 +57,7 @@
   border-radius: 5px; /* Rounded corners */
   transition: background-color 0.3s, color 0.3s; /* Smooth transition */
 }
+
 
 /* Logout button hover effect */
 .logout-button:hover {

@@ -41,8 +41,21 @@ const Header = () => {
           &#9776;
         </button>
         <div className="header-logo">
-          <Link to="/dashboard">MyApp</Link>
+          <Link to="/home">MyApp</Link>
         </div>
+        <Link to="/profile" className="profile">
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            width="40"
+            height="70"
+            fill="currentColor"
+            class="bi bi-person"
+            viewBox="0 0 16 16"
+          >
+            <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
+          </svg>
+          {/* Profile */}
+        </Link>
         <button className="logout-button" onClick={handleLogout}>
           Logout
         </button>
@@ -52,12 +65,12 @@ const Header = () => {
       <nav className={`sidebar ${isSidebarOpen ? "open" : ""}`}>
         <ul>
           <li>
-            <Link to="home" onClick={toggleSidebar}>
+            <Link to="/home" onClick={toggleSidebar}>
               Home
             </Link>
           </li>
           <li>
-            <Link to="profile" onClick={toggleSidebar}>
+            <Link to="/profile" onClick={toggleSidebar}>
               Profile
             </Link>
           </li>
@@ -67,6 +80,11 @@ const Header = () => {
               <li>
                 <Link to="BankAccountDetails" onClick={toggleSidebar}>
                   Bank Accounts
+                </Link>
+              </li>
+              <li>
+                <Link to="MoneyTransfer" onClick={toggleSidebar}>
+                  Transfer Money
                 </Link>
               </li>
               <li>
@@ -81,12 +99,17 @@ const Header = () => {
             <>
               <li>
                 <Link to="adminAccountCreation" onClick={toggleSidebar}>
-                  Account Creation
+                  New Bank Account Creation
                 </Link>
               </li>
               <li>
                 <Link to="adminAccountAllAccountList" onClick={toggleSidebar}>
                   Existing Accounts
+                </Link>
+              </li>
+              <li>
+                <Link to="accountDeposit" onClick={toggleSidebar}>
+                  Deposit money for Customer
                 </Link>
               </li>
             </>

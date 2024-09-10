@@ -202,7 +202,7 @@ const AdminControlsAccountCreation = () => {
 
   return (
     <div className="admin-controls">
-      <h1>Generate Customer Account</h1>
+      <h1>Generate New Customer Account</h1>
       <form onSubmit={handleSubmit}>
         <div>
           <label htmlFor="name">Name:</label>
@@ -224,7 +224,7 @@ const AdminControlsAccountCreation = () => {
             required
           />
         </div>
-        <button type="submit">Register Bank Account</button>
+        <button type="submit">Generate Bank Account</button>
       </form>
       {responseMessage && (
         <div className={`response-message ${isError ? "error" : "success"}`}>

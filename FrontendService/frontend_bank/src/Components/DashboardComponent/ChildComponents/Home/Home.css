@@ -17,7 +17,7 @@ body {
 
 /* Navbar */
 .home-header {
-  background-color: #1a1f71;
+  background-color: #1a1e71c6;
   color: white;
   padding: 20px;
 }
@@ -44,7 +44,7 @@ body {
 
 /* Hero Section */
 .hero-section {
-  background: linear-gradient(135deg, #ffcc00, #1a1f71);
+  background: linear-gradient(135deg, #ffcc00, #71451ab3);
   color: white;
   padding: 50px;
   margin-top: 20px;
@@ -99,20 +99,3 @@ body {
   color: #555;
 }
 
-/* Footer */
-.footer {
-  background-color: #1a1f71;
-  color: white;
-  padding: 20px;
-  text-align: center;
-}
-
-.footer p {
-  margin: 0;
-}
-
-.social-icons a {
-  color: white;
-  margin: 0 10px;
-  text-decoration: none;
-}

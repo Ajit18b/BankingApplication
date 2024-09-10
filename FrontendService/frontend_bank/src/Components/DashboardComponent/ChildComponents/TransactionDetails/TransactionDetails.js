@@ -103,7 +103,7 @@ const TransactionDetails = () => {
         pdf.addImage(imgData, "PNG", 0, -heightLeft, imgWidth, imgHeight);
         heightLeft -= pageHeight;
       }
-      pdf.save("transaction-details.pdf");
+      pdf.save(`transaction-details-${accountNumber}.pdf`);
     });
   };
 

@@ -28,7 +28,7 @@ public class JWTServiceImpl implements JWTService {
                 .claim("userType", userType)  // Add user type as a custom claim
                 .claim("fullName", fullName)  // Add full name as a custom claim
                 .setIssuedAt(new Date(System.currentTimeMillis()))
-                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 *30))
+                .setExpiration(new Date(System.currentTimeMillis() + 1000 * 60 *60))
                 .signWith(getSiginKey(), SignatureAlgorithm.HS256)
                 .compact();
     }

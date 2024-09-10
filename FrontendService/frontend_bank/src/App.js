@@ -10,6 +10,8 @@ import AdminControlsAllAccountList from "./Components/DashboardComponent/ChildCo
 import BankAccountDetails from "./Components/DashboardComponent/ChildComponents/BankAccountDetails/BankAccountDetails";
 import "./App.css";
 import TransactionDetails from "./Components/DashboardComponent/ChildComponents/TransactionDetails/TransactionDetails";
+import MoneyTransfer from "./Components/DashboardComponent/ChildComponents/MoneyTransfer/MoneyTransfer";
+import AccountDeposit from "./Components/DashboardComponent/ChildComponents/AdminControls/AccountDeposit";
 
 function App() {
   return (
@@ -29,6 +31,7 @@ function App() {
           <Route path="/profile" element={<Profile />} />
           <Route path="/BankAccountDetails" element={<BankAccountDetails />} />
           <Route path="/TransactionDetails" element={<TransactionDetails />} />
+          <Route path="/MoneyTransfer" element={<MoneyTransfer />} />
           <Route
             path="/adminAccountCreation"
             element={
@@ -42,6 +45,14 @@ function App() {
             element={
               <PrivateRoute allowedRoles={["ADMIN"]}>
                 <AdminControlsAllAccountList />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/accountDeposit"
+            element={
+              <PrivateRoute allowedRoles={["ADMIN"]}>
+                <AccountDeposit />
               </PrivateRoute>
             }
           />
