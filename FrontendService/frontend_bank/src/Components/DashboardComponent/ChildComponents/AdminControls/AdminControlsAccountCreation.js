@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import "./AdminControlsAccountCreation.css"; // Optional CSS file for styling
 import axios from "axios"; // Import axios for making HTTP requests
 import jsPDF from "jspdf"; // Import jsPDF for generating PDFs
+import apiConfig from "../../../../apiConfig";
 
 const AdminControlsAccountCreation = () => {
   const [email, setEmail] = useState("");
@@ -22,7 +23,7 @@ const AdminControlsAccountCreation = () => {
     try {
       // First API call for account registration
       const response = await axios.post(
-        "http://localhost:8080/api/v1/admin/register-bank-account",
+        apiConfig.endpoints.accountGenerationByAdmin_8080,
         { email, name }, // Include name in the payload
         {
           headers: {
@@ -182,7 +183,7 @@ const AdminControlsAccountCreation = () => {
   const registerAccountWithNewApi = async (accountNumber) => {
     try {
       const response = await axios.post(
-        "http://localhost:8100/api/accounts/register",
+        apiConfig.endpoints.bankAccountSubmissionForTransaction_8100,
         { accountNumber },
         {
           headers: {

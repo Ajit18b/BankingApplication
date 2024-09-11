@@ -6,7 +6,7 @@ import com.banking.AccountTransactions.entity.BankAccount;
 import com.banking.AccountTransactions.service.BankAccountService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-@CrossOrigin("http://localhost:3000")
+@CrossOrigin({"http://localhost:3000","http://192.168.4.170:3000"})
 @RestController
 @RequestMapping("/api/accounts")
 public class AccountController {

@@ -4,6 +4,7 @@ import { jwtDecode } from "jwt-decode";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import "./TransactionDetails.css";
+import apiConfig from "../../../../apiConfig";
 
 const TransactionDetails = () => {
   const [transactions, setTransactions] = useState([]);
@@ -24,7 +25,7 @@ const TransactionDetails = () => {
     const fetchAccountNumber = async () => {
       try {
         const response = await axios.post(
-          "http://localhost:8080/api/v1/user/account",
+          apiConfig.endpoints.userBankAccountNumber_Name_8080,
           { email: sub },
           {
             headers: {
@@ -49,7 +50,7 @@ const TransactionDetails = () => {
     const fetchTransactions = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8100/api/transactions/byAccountNumber/${accountNumber}`,
+          `${apiConfig.endpoints.userTransactionDetails_8100 + accountNumber}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,

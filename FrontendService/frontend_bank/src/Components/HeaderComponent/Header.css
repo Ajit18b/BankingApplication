@@ -40,7 +40,7 @@
   background: none; /* No background color initially */
   color: white; /* Text color */
   cursor: pointer; /* Pointer cursor on hover */
-  margin-right: -1150px; /* Right margin */
+  margin-right: -1000px; /* Right margin */
   margin-left: auto;
 }
 

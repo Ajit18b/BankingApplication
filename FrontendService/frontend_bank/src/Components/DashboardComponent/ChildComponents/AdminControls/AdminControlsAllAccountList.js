@@ -3,6 +3,7 @@ import axios from "axios";
 import jsPDF from "jspdf";
 import "jspdf-autotable";
 import "./AdminControlsAllAccountList.css"; // Optional CSS file for styling
+import apiConfig from "../../../../apiConfig";
 
 const AdminControlsAllAccountList = () => {
   const [accounts, setAccounts] = useState([]);
@@ -17,7 +18,7 @@ const AdminControlsAllAccountList = () => {
 
       try {
         const response = await axios.get(
-          "http://localhost:8080/api/v1/admin/bank-accounts",
+          apiConfig.endpoints.allAccountDetailsFetchByAdmin_8080,
           {
             headers: {
               Authorization: `Bearer ${token}`,

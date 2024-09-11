@@ -1,8 +1,9 @@
-import React, { useState } from "react"; // Removed useEffect since it's unused
+import React, { useState } from "react";
 import axios from "axios";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import "./AccountDeposit.css";
+import apiConfig from "../../../../apiConfig";
 
 const AccountDeposit = () => {
   const [accountNumber, setAccountNumber] = useState("");
@@ -38,11 +39,11 @@ const AccountDeposit = () => {
     }
 
     const finalDescription =
-      descriptionType === "Other" ? customDescription : descriptionType;
+      descriptionType === "OTHER" ? customDescription : descriptionType;
 
     try {
       const transactionResponse = await axios.post(
-        "http://localhost:8100/api/transactions/new",
+        apiConfig.endpoints.newCrediTransaction_8100,
         {
           accountNumber: accountNumber,
           amount: parseFloat(amount),
@@ -189,7 +190,7 @@ const AccountDeposit = () => {
             </select>
           </label>
 
-          {descriptionType === "Other" && (
+          {descriptionType === "OTHER" && (
             <label>
               Custom Description:
               <input

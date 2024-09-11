@@ -86,10 +86,10 @@
 }
 
 
-h1.styled-heading {
+h4.styled-heading {
   color: #f9f9f9; /* Text color */
-  font-family: 'Times New Roman', serif; /* Font family */
-  font-size: 2.5em; /* Font size */
+  font-family:Verdana, Geneva, Tahoma, sans-serif; /* Font family */
+  font-size: 2em; /* Font size */
   font-weight: bold; /* Font weight */
   text-align: center; /* Text alignment */
   text-shadow: 
@@ -98,7 +98,7 @@ h1.styled-heading {
     3px 3px 0 rgba(255, 254, 254, 0.147), 
     4px 4px 0 rgba(255, 255, 255, 0.147), 
     5px 5px 0 rgba(255, 255, 255, 0.147); /* 3D effect with shadow layers */
-  margin: 20px; /* Margin around the heading */
+  margin: 4px; /* Margin around the heading */
   position: relative;
   transform: perspective(500px) rotateX(10deg); /* Perspective and rotation for 3D effect */
 }

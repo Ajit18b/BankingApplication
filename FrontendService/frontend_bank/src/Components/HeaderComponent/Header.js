@@ -41,7 +41,7 @@ const Header = () => {
           &#9776;
         </button>
         <div className="header-logo">
-          <Link to="/home">MyApp</Link>
+          <Link to="/home">BankX-WebPortal</Link>
         </div>
         <Link to="/profile" className="profile">
           <svg

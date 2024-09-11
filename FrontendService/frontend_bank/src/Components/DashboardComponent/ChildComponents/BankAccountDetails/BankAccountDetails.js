@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { jwtDecode } from "jwt-decode";
 import "./BankAccountDetails.css";
+import apiConfig from "../../../../apiConfig";
 
 const BankAccountDetails = () => {
   const [account, setAccount] = useState(null);
@@ -30,7 +31,7 @@ const BankAccountDetails = () => {
     const fetchAccountDetails = async () => {
       try {
         const response = await axios.post(
-          "http://localhost:8080/api/v1/user/account",
+          apiConfig.endpoints.userBankAccountNumber_Name_8080,
           { email: sub },
           {
             headers: {
@@ -44,7 +45,10 @@ const BankAccountDetails = () => {
 
         // Fetch the account balance using the account number
         const balanceResponse = await axios.get(
-          `http://localhost:8100/api/accounts/${response.data.accountNumber}`,
+          `${
+            apiConfig.endpoints.accountBalanceEnquary_8100 +
+            response.data.accountNumber
+          }`,
           {
             headers: {
               Authorization: `Bearer ${token}`,

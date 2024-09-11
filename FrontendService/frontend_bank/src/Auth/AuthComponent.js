@@ -8,6 +8,7 @@ import RegisterForm from "./AuthSubComponent/RegisterForm";
 import SuccessPopup from "./../Utils/SuccessPopup"; // Import the SuccessPopup component
 import LoadingSpinner from "./../Utils/LoadingSpinner"; // Import the LoadingSpinner component
 import "./AuthComponent.css";
+import apiConfig from "../apiConfig";
 
 const AuthComponent = () => {
   const [isLogin, setIsLogin] = useState(true);
@@ -62,7 +63,7 @@ const AuthComponent = () => {
   const checkEmailExists = async (email) => {
     try {
       const response = await fetch(
-        "http://localhost:8080/api/v1/auth/check-email",
+        apiConfig.endpoints.userEmailCheckForAccountLogin_8080,
         {
           method: "POST",
           headers: {
@@ -95,7 +96,7 @@ const AuthComponent = () => {
         return;
       }
 
-      const response = await fetch("http://localhost:8090/api/otp/send", {
+      const response = await fetch(apiConfig.endpoints.sendOtpRequest_8090, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -130,7 +131,7 @@ const AuthComponent = () => {
     setShowSpinner(true); // Show spinner during OTP verification
 
     try {
-      const response = await fetch("http://localhost:8090/api/otp/verify", {
+      const response = await fetch(apiConfig.endpoints.verifyOtpRequest_8090, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -164,7 +165,7 @@ const AuthComponent = () => {
     setShowSpinner(true); // Show spinner
 
     try {
-      const response = await fetch("http://localhost:8080/api/v1/auth/signin", {
+      const response = await fetch(apiConfig.endpoints.userSignInRequest_8080, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -201,7 +202,7 @@ const AuthComponent = () => {
     setShowSpinner(true); // Show spinner
 
     try {
-      const response = await fetch("http://localhost:8080/api/v1/auth/signup", {
+      const response = await fetch(apiConfig.endpoints.userSignUpRequest_8080, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -244,7 +245,8 @@ const AuthComponent = () => {
 
   return (
     <div className="auth-container">
-      <h1 className="styled-heading">ONLINE BANKING PORTAL</h1>
+      <h4 className="styled-heading">BANK-X</h4>
+      <h4 className="styled-heading">ONLINE BANKING PORTAL</h4>
       {showPopup && (
         <SuccessPopup
           message="Registration successful!"

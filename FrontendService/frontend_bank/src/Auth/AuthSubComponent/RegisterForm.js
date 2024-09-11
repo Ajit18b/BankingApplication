@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import RegisterEmailidInput from "./RegisterEmailidInput";
 import OtpVerification from "./OtpVerification";
 import LoadingSpinner from "./../../Utils/LoadingSpinner"; // Import the spinner
+import apiConfig from "../../apiConfig";
 
 const RegisterForm = ({
   formData,
@@ -24,7 +25,7 @@ const RegisterForm = ({
     try {
       // First API: Check if email exists in the auth system
       const authResponse = await fetch(
-        "http://localhost:8080/api/v1/auth/check-email",
+        apiConfig.endpoints.userEmailCheckForAccountPortalRegistration_8080,
         {
           method: "POST",
           headers: {
@@ -38,7 +39,7 @@ const RegisterForm = ({
 
       // Second API: Check if email exists with bank account
       const bankResponse = await fetch(
-        "http://localhost:8080/api/v1/public/unregistered-portal-email",
+        apiConfig.endpoints.userCheckForUnregisteredPortalEmail_8080,
         {
           method: "POST",
           headers: {
@@ -103,7 +104,7 @@ const RegisterForm = ({
     setIsLoading(true); // Show the spinner while sending OTP
 
     try {
-      const response = await fetch("http://localhost:8090/api/otp/send", {
+      const response = await fetch(apiConfig.endpoints.sendOtpRequest_8090, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -136,7 +137,7 @@ const RegisterForm = ({
     setIsLoading(true); // Show the spinner while verifying OTP
 
     try {
-      const response = await fetch("http://localhost:8090/api/otp/verify", {
+      const response = await fetch(apiConfig.endpoints.verifyOtpRequest_8090, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

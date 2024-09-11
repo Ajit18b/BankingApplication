@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { jwtDecode } from "jwt-decode"; // Corrected import statement
+import { jwtDecode } from "jwt-decode";
 import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import "./MoneyTransfer.css";
+import apiConfig from "../../../../apiConfig";
 
 const MoneyTransfer = () => {
   const [myAccount, setMyAccount] = useState(null);
@@ -14,6 +15,7 @@ const MoneyTransfer = () => {
   const [response, setResponse] = useState(null);
   const [error, setError] = useState(null);
   const [validationErrors, setValidationErrors] = useState({});
+  const [transferType, setTransferType] = useState("otherBank"); // Default transfer type is to other bank
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -28,7 +30,7 @@ const MoneyTransfer = () => {
     const fetchAccountDetails = async () => {
       try {
         const response = await axios.post(
-          "http://localhost:8080/api/v1/user/account",
+          apiConfig.endpoints.userBankAccountNumber_Name_8080,
           { email: sub },
           {
             headers: {
@@ -49,9 +51,9 @@ const MoneyTransfer = () => {
   }, []);
 
   const validateForm = () => {
-    const accountNumberRegex = /^\d+$/; // Only numeric values
-    const ifscRegex = /^[A-Za-z0-9]+$/; // Alphanumeric values
-    const nameRegex = /^[A-Za-z\s]+$/; // Only letters and spaces
+    const accountNumberRegex = /^\d+$/;
+    const ifscRegex = /^[A-Za-z0-9]+$/;
+    const nameRegex = /^[A-Za-z\s]+$/;
     let errors = {};
 
     if (!accountNumberRegex.test(receiverAccount)) {
@@ -63,12 +65,17 @@ const MoneyTransfer = () => {
         "Account holder name must contain only letters";
     }
 
-    if (!ifscRegex.test(ifscCode)) {
+    if (transferType === "otherBank" && !ifscRegex.test(ifscCode)) {
       errors.ifscCode = "IFSC code must be alphanumeric";
     }
 
     if (parseFloat(amount) <= 0) {
       errors.amount = "Amount must be a positive number";
+    }
+
+    if (myAccount === receiverAccount) {
+      errors.receiverAccount =
+        "Sender and receiver account numbers must be different";
     }
 
     setValidationErrors(errors);
@@ -78,25 +85,35 @@ const MoneyTransfer = () => {
   const handleTransfer = async (e) => {
     e.preventDefault();
 
-    // Validate form before proceeding
     if (!validateForm()) {
       return;
     }
 
-    // Combine account holder name, receiver account number, and IFSC code, and prepend "ACC TRANSFER"
-    const combinedDescription =
-      `ACC TRANSFER ${accountHolderName} ${receiverAccount} ${ifscCode}`
-        .slice(0, 50) // Increase character limit to 50
-        .toUpperCase();
+    let description = "";
+
+    if (transferType === "sameBank") {
+      // Format for same bank transfer
+      description =
+        `ACC TRANSFER TO ${accountHolderName} ${receiverAccount} FROM ${myAccount}`
+          .slice(0, 50)
+          .toUpperCase();
+    } else {
+      // Format for other bank transfer
+      description =
+        `ACC TRANSFER TO ${accountHolderName} ${receiverAccount} ${ifscCode}`
+          .slice(0, 50)
+          .toUpperCase();
+    }
 
     try {
-      const transactionResponse = await axios.post(
-        "http://localhost:8100/api/transactions/new",
+      // Debit the amount from the sender's account
+      const debitResponse = await axios.post(
+        apiConfig.endpoints.newDebitTransaction_8100,
         {
           accountNumber: myAccount,
           amount: parseFloat(amount),
           type: "DEBIT",
-          description: combinedDescription,
+          description,
         },
         {
           headers: {
@@ -104,13 +121,42 @@ const MoneyTransfer = () => {
           },
         }
       );
-      setResponse(transactionResponse.data);
+
+      if (transferType === "sameBank") {
+        // Credit the amount to the receiver's account
+        try {
+          await axios.post(
+            apiConfig.endpoints.newCrediTransaction_8100,
+            {
+              accountNumber: receiverAccount,
+              amount: parseFloat(amount),
+              type: "CREDIT",
+              description,
+            },
+            {
+              headers: {
+                "Content-Type": "application/json",
+              },
+            }
+          );
+        } catch (creditError) {
+          if (creditError.response && creditError.response.status === 404) {
+            // Handle account not found
+            setError("Receiver account not found in the same bank");
+            return;
+          } else {
+            console.error("Error processing credit transaction:", creditError);
+            setError("Failed to credit the amount to the receiver's account.");
+            return;
+          }
+        }
+      }
+
+      setResponse(debitResponse.data);
       setError(null);
     } catch (err) {
       console.error("Error processing the transaction:", err);
-      setError(
-        "Transaction failed : Insufficient Account Balance For this Transaction"
-      );
+      setError("Transaction failed: Insufficient Account Balance");
     }
   };
 
@@ -119,22 +165,13 @@ const MoneyTransfer = () => {
     if (response) {
       const docDefinition = {
         content: [
+          { text: "Bank Name", style: "header" },
+          { text: "Transaction Receipt", style: "subheader" },
           {
-            text: "Bank Name", // Replace with your bank or company name
-            style: "header",
-          },
-          {
-            text: "Transaction Receipt",
-            style: "subheader",
-          },
-          {
-            text: `Date: ${new Date().toLocaleDateString()}`, // Current date
+            text: `Date: ${new Date().toLocaleDateString()}`,
             alignment: "right",
           },
-          {
-            text: " ",
-            margin: [0, 10], // Space between sections
-          },
+          { text: " ", margin: [0, 10] },
           {
             style: "tableExample",
             table: {
@@ -152,14 +189,8 @@ const MoneyTransfer = () => {
             },
             layout: "lightHorizontalLines",
           },
-          {
-            text: " ",
-            margin: [0, 10], // Space before footer
-          },
-          {
-            text: "Thank you for banking with us!",
-            style: "footer",
-          },
+          { text: " ", margin: [0, 10] },
+          { text: "Thank you for banking with us!", style: "footer" },
           {
             text: "If you have any questions, please contact us at: support@bank.com",
             style: "footer",
@@ -178,10 +209,7 @@ const MoneyTransfer = () => {
             alignment: "center",
             margin: [0, 10],
           },
-          tableExample: {
-            margin: [0, 5, 0, 15],
-            fontSize: 12,
-          },
+          tableExample: { margin: [0, 5, 0, 15], fontSize: 12 },
           footer: {
             fontSize: 10,
             italics: true,
@@ -189,15 +217,12 @@ const MoneyTransfer = () => {
             margin: [0, 10],
           },
         },
-        defaultStyle: {
-          columnGap: 20,
-        },
+        defaultStyle: { columnGap: 20 },
       };
 
       pdfMake
         .createPdf(docDefinition)
         .download(`transaction_receipt_${myAccount}.pdf`);
-
       setTimeout(() => {
         window.location.reload();
       }, 1000);
@@ -225,13 +250,34 @@ const MoneyTransfer = () => {
         <form className="transfer-form" onSubmit={handleTransfer}>
           <h1>Money Transfer</h1>
 
+          <div>
+            <label>
+              <input
+                type="radio"
+                value="otherBank"
+                checked={transferType === "otherBank"}
+                onChange={() => setTransferType("otherBank")}
+              />
+              Transfer to Other Bank
+            </label>
+            <label>
+              <input
+                type="radio"
+                value="sameBank"
+                checked={transferType === "sameBank"}
+                onChange={() => setTransferType("sameBank")}
+              />
+              Transfer within Same Bank
+            </label>
+          </div>
+
           <label>
-            Amount:
+            Amount ₹ :
             <input
               type="number"
               value={amount}
               onChange={(e) => setAmount(e.target.value)}
-              min="1" // Prevent negative values and zero
+              min="1"
               required
             />
             {validationErrors.amount && (
@@ -255,20 +301,7 @@ const MoneyTransfer = () => {
           </label>
 
           <label>
-            IFSC Code:
-            <input
-              type="text"
-              value={ifscCode}
-              onChange={(e) => setIfscCode(e.target.value)}
-              required
-            />
-            {validationErrors.ifscCode && (
-              <p className="validation-error">{validationErrors.ifscCode}</p>
-            )}
-          </label>
-
-          <label>
-            Account Holder Name:
+            Receiver Account Holder Name:
             <input
               type="text"
               value={accountHolderName}
@@ -282,7 +315,22 @@ const MoneyTransfer = () => {
             )}
           </label>
 
-          <button type="submit">Transfer Money</button>
+          {transferType === "otherBank" && (
+            <label>
+              IFSC Code:
+              <input
+                type="text"
+                value={ifscCode}
+                onChange={(e) => setIfscCode(e.target.value)}
+                required
+              />
+              {validationErrors.ifscCode && (
+                <p className="validation-error">{validationErrors.ifscCode}</p>
+              )}
+            </label>
+          )}
+
+          <button type="submit">Submit Transfer</button>
         </form>
       )}
     </div>
