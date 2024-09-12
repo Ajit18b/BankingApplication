@@ -165,7 +165,7 @@ const MoneyTransfer = () => {
     if (response) {
       const docDefinition = {
         content: [
-          { text: "Bank Name", style: "header" },
+          { text: "BankX Global PVT Ltd.", style: "header" },
           { text: "Transaction Receipt", style: "subheader" },
           {
             text: `Date: ${new Date().toLocaleDateString()}`,
@@ -192,7 +192,7 @@ const MoneyTransfer = () => {
           { text: " ", margin: [0, 10] },
           { text: "Thank you for banking with us!", style: "footer" },
           {
-            text: "If you have any questions, please contact us at: support@bank.com",
+            text: "If you have any questions, please contact us at: support@bankxglobal.com",
             style: "footer",
           },
         ],
@@ -330,7 +330,7 @@ const MoneyTransfer = () => {
             </label>
           )}
 
-          <button type="submit">Submit Transfer</button>
+          <button type="submit">Transfer Amount</button>
         </form>
       )}
     </div>
@@ -338,3 +338,11 @@ const MoneyTransfer = () => {
 };
 
 export default MoneyTransfer;
+
+
+
+
+
+
+ 
+

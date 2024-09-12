@@ -11,6 +11,9 @@ const TransactionDetails = () => {
   const [totalAmount, setTotalAmount] = useState(0);
   const [error, setError] = useState(null);
   const [accountNumber, setAccountNumber] = useState(""); // Set this with actual account number
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
+  const [transactionType, setTransactionType] = useState("ALL"); // ALL, CREDIT, DEBIT
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -47,6 +50,20 @@ const TransactionDetails = () => {
   useEffect(() => {
     if (!accountNumber) return;
 
+    const fetchFilteredTransactions = (transactions) => {
+      return transactions.filter((txn) => {
+        const txnDate = new Date(txn.date);
+        const isWithinDateRange =
+          (!startDate || txnDate >= new Date(startDate)) &&
+          (!endDate || txnDate <= new Date(endDate));
+
+        const isMatchingType =
+          transactionType === "ALL" || txn.type === transactionType;
+
+        return isWithinDateRange && isMatchingType;
+      });
+    };
+
     const fetchTransactions = async () => {
       try {
         const response = await axios.get(
@@ -57,12 +74,22 @@ const TransactionDetails = () => {
             },
           }
         );
-        setTransactions(response.data);
 
-        // Calculate total amount
-        const total = response.data.reduce((sum, txn) => {
+        const sortedTransactions = response.data.sort(
+          (a, b) => new Date(b.date) - new Date(a.date)
+        );
+
+        // Apply filters (date and type)
+        const filteredTransactions =
+          fetchFilteredTransactions(sortedTransactions);
+
+        setTransactions(filteredTransactions);
+
+        // Calculate total amount for the filtered transactions
+        const total = filteredTransactions.reduce((sum, txn) => {
           return txn.type === "CREDIT" ? sum + txn.amount : sum - txn.amount;
         }, 0);
+
         setTotalAmount(total);
         setError(null);
       } catch (err) {
@@ -72,7 +99,7 @@ const TransactionDetails = () => {
     };
 
     fetchTransactions();
-  }, [accountNumber]);
+  }, [accountNumber, startDate, endDate, transactionType]);
 
   const formatDate = (dateString) => {
     const date = new Date(dateString);
@@ -114,6 +141,35 @@ const TransactionDetails = () => {
         <p className="error-message">{error}</p>
       ) : (
         <>
+          <div className="filter-section">
+            <div className="date-filter">
+              <label>Start Date: </label>
+              <input
+                type="date"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+              />
+              <label>End Date: </label>
+              <input
+                type="date"
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)}
+              />
+            </div>
+
+            <div className="type-filter">
+              <label>Transaction Type: </label>
+              <select
+                value={transactionType}
+                onChange={(e) => setTransactionType(e.target.value)}
+              >
+                <option value="ALL">All</option>
+                <option value="CREDIT">Credit</option>
+                <option value="DEBIT">Debit</option>
+              </select>
+            </div>
+          </div>
+
           <button onClick={downloadPDF} className="download-btn">
             Download Account Statement
           </button>

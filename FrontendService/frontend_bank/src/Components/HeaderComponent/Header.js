@@ -1,10 +1,12 @@
+// src/Header.js
 import React, { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode"; // Correct import
+import { useSidebar } from "../../Utils/SidebarContext";
 import "./Header.css";
 
 const Header = () => {
-  const [isSidebarOpen, setSidebarOpen] = useState(false);
+  const { isSidebarOpen, toggleSidebar } = useSidebar();
   const [userType, setUserType] = useState("USER"); // Default to USER
   const navigate = useNavigate();
 
@@ -21,10 +23,6 @@ const Header = () => {
       }
     }
   }, []);
-
-  const toggleSidebar = () => {
-    setSidebarOpen(!isSidebarOpen);
-  };
 
   const handleLogout = () => {
     // Clear the token from localStorage or any other storage
@@ -49,7 +47,7 @@ const Header = () => {
             width="40"
             height="70"
             fill="currentColor"
-            class="bi bi-person"
+            className="bi bi-person"
             viewBox="0 0 16 16"
           >
             <path d="M8 8a3 3 0 1 0 0-6 3 3 0 0 0 0 6m2-3a2 2 0 1 1-4 0 2 2 0 0 1 4 0m4 8c0 1-1 1-1 1H3s-1 0-1-1 1-4 6-4 6 3 6 4m-1-.004c-.001-.246-.154-.986-.832-1.664C11.516 10.68 10.289 10 8 10s-3.516.68-4.168 1.332c-.678.678-.83 1.418-.832 1.664z" />
@@ -90,6 +88,11 @@ const Header = () => {
               <li>
                 <Link to="TransactionDetails" onClick={toggleSidebar}>
                   Transaction Details
+                </Link>
+              </li>
+              <li>
+                <Link to="ExpenseTracker" onClick={toggleSidebar}>
+                  Track Your Expense
                 </Link>
               </li>
             </>

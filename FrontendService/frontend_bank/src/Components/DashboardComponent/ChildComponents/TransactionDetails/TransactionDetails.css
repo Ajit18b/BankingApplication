@@ -1,6 +1,6 @@
 .transaction-details {
-    margin: 50px auto;
-    max-width: 1000px;
+    margin: 12px auto;
+    max-width: 1450px;
     background-color: #f9f9f9;
     padding: 20px;
     border-radius: 8px;
@@ -70,5 +70,28 @@
   
   .download-btn:hover {
     background-color: #0056b3;
+  }
+  .filter-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Adjusts spacing between the fields */
+    gap: 10px; /* Add some space between each filter */
+  }
+  
+  .date-filter,
+  .type-filter {
+    display: flex;
+    align-items: center;
+  }
+  
+  .date-filter label,
+  .type-filter label {
+    margin-right: 5px;
+  }
+  
+  input[type="date"],
+  select {
+    padding: 5px;
+    margin-left: 5px;
   }
   

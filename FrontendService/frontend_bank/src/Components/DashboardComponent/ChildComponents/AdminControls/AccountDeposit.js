@@ -69,7 +69,7 @@ const AccountDeposit = () => {
     if (response) {
       const docDefinition = {
         content: [
-          { text: "Bank Name", style: "header" },
+          { text: "BankX Global PVT Ltd.", style: "header" },
           { text: "Deposit Receipt", style: "subheader" },
           {
             text: `Date: ${new Date().toLocaleDateString()}`,

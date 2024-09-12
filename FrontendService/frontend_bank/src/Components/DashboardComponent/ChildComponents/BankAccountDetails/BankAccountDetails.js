@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from "react";
+import { FaEye, FaEyeSlash } from "react-icons/fa";
 import axios from "axios";
-import { jwtDecode } from "jwt-decode";
+import { jwtDecode } from "jwt-decode"; // Ensure correct import for jwt-decode
 import "./BankAccountDetails.css";
 import apiConfig from "../../../../apiConfig";
 
 const BankAccountDetails = () => {
   const [account, setAccount] = useState(null);
-  const [balance, setBalance] = useState(null); // New state for account balance
+  const [balance, setBalance] = useState(null);
   const [error, setError] = useState(null);
-  const [isUser, setIsUser] = useState(true); // Assume user by default, adjust if needed
+  const [isUser, setIsUser] = useState(true);
+  const [showBalance, setShowBalance] = useState(false);
+
+  const toggleBalanceVisibility = () => {
+    setShowBalance(!showBalance);
+  };
 
   useEffect(() => {
-    // Retrieve and decode the token from localStorage
     const token = localStorage.getItem("token");
     if (!token) {
       setError("No token found");
@@ -21,13 +26,11 @@ const BankAccountDetails = () => {
     const decodedToken = jwtDecode(token);
     const { sub, userType } = decodedToken;
 
-    // Check if the user is an ADMIN
     if (userType === "ADMIN") {
       setIsUser(false);
       return;
     }
 
-    // Fetch account details for users
     const fetchAccountDetails = async () => {
       try {
         const response = await axios.post(
@@ -43,12 +46,8 @@ const BankAccountDetails = () => {
         setAccount(response.data);
         setError(null);
 
-        // Fetch the account balance using the account number
         const balanceResponse = await axios.get(
-          `${
-            apiConfig.endpoints.accountBalanceEnquary_8100 +
-            response.data.accountNumber
-          }`,
+          `${apiConfig.endpoints.accountBalanceEnquary_8100}${response.data.accountNumber}`,
           {
             headers: {
               Authorization: `Bearer ${token}`,
@@ -67,18 +66,20 @@ const BankAccountDetails = () => {
 
   if (!isUser) {
     return (
-      <div className="message">Hi Admin, please check all account details.</div>
+      <div className="admin-message-text">
+        Hi Admin, please check all account details.
+      </div>
     );
   }
 
   return (
-    <div className="bank-account-details">
+    <div className="bank-account-details-container">
       {error ? (
-        <p className="error-message">{error}</p>
+        <p className="error-message-text">{error}</p>
       ) : account ? (
-        <div className="account-details">
+        <div className="account-details-wrapper">
           <h1>Bank Account Details</h1>
-          <table className="account-table">
+          <table className="account-details-table">
             <tbody>
               <tr>
                 <td>
@@ -100,9 +101,29 @@ const BankAccountDetails = () => {
               </tr>
               <tr>
                 <td>
+                  <strong>Account Type:</strong>
+                </td>
+                <td>SAVINGS</td>
+              </tr>
+              <tr>
+                <td>
                   <strong>Account Balance:</strong>
                 </td>
-                <td>{balance !== null ? `₹${balance}` : "Loading..."}</td>
+                <td className="table-cell">
+                  {balance !== null ? (
+                    <>
+                      {showBalance ? `₹${balance}` : "•••••••••"}
+                      <button
+                        onClick={toggleBalanceVisibility}
+                        className="eye-icon-button"
+                      >
+                        {showBalance ? <FaEyeSlash /> : <FaEye />}
+                      </button>
+                    </>
+                  ) : (
+                    "Loading..."
+                  )}
+                </td>
               </tr>
             </tbody>
           </table>
