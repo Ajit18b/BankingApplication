@@ -1,11 +1,14 @@
 // LoadingSpinner.js
+
 import React from "react";
-import "./LoadingSpinner.css"; // Make sure to create this CSS file
+import "./LoadingSpinner.css"; // Import the CSS file for styling
 
 const LoadingSpinner = () => {
   return (
-    <div className="loading-overlay">
-      <div className="loading-spinner"></div>
+    <div className="loading-spinner-overlay">
+      <div className="loading-spinner">
+        <div className="spinner"></div>
+      </div>
     </div>
   );
 };

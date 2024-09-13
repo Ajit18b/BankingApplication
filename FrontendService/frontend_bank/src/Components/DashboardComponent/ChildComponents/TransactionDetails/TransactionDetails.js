@@ -49,13 +49,15 @@ const TransactionDetails = () => {
 
   useEffect(() => {
     if (!accountNumber) return;
-
     const fetchFilteredTransactions = (transactions) => {
       return transactions.filter((txn) => {
         const txnDate = new Date(txn.date);
-        const isWithinDateRange =
-          (!startDate || txnDate >= new Date(startDate)) &&
-          (!endDate || txnDate <= new Date(endDate));
+        const start = startDate
+          ? new Date(startDate + "T00:00:00")
+          : new Date(0); // Start of the day for startDate
+        const end = endDate ? new Date(endDate + "T23:59:59") : new Date(); // End of the day for endDate
+
+        const isWithinDateRange = txnDate >= start && txnDate <= end;
 
         const isMatchingType =
           transactionType === "ALL" || txn.type === transactionType;

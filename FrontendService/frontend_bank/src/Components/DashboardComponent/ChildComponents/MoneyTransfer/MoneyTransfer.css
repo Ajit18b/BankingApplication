@@ -1,6 +1,7 @@
 .money-transfer {
   margin: 50px auto;
   max-width: 1000px;
+  max-height: 1000px;
   background-color: #f9f9f9;
   padding: 20px;
   border-radius: 8px;
@@ -64,3 +65,44 @@ button:hover {
   margin-top: 5px;
 }
  
+
+.success-icon-container {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.success-icon {
+  width: 70px;
+  height: 70px;
+  background-color: #e0ffe0;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.tick-icon {
+  stroke: green;
+}
+
+.error-message-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.error-icon {
+  margin-bottom: 8px; /* Adds space between the cross icon and the error message */
+}
+
+.error-message {
+  color: #dc3545; /* Red color for the error message */
+  font-size: 16px; /* Adjust the font size as needed */
+  text-align: center;
+}
+
+
+
+
+
