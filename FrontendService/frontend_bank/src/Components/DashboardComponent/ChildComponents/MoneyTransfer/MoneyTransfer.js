@@ -6,6 +6,7 @@ import pdfFonts from "pdfmake/build/vfs_fonts";
 import "./MoneyTransfer.css";
 import apiConfig from "../../../../apiConfig";
 import LoadingSpinner from "../../../../Utils/LoadingSpinner"; // Import the LoadingSpinner
+import OtpVerification from "../../../../Utils/OtpVerification";
 
 const MoneyTransfer = () => {
   const [myAccount, setMyAccount] = useState(null);
@@ -18,6 +19,7 @@ const MoneyTransfer = () => {
   const [validationErrors, setValidationErrors] = useState({});
   const [transferType, setTransferType] = useState("otherBank");
   const [loading, setLoading] = useState(false); // State for loading
+  const [showOtpVerification, setShowOtpVerification] = useState(false);
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -90,26 +92,36 @@ const MoneyTransfer = () => {
   const handleTransfer = async (e) => {
     e.preventDefault();
 
+    // Your form validation
     if (!validateForm()) {
       return;
     }
 
-    let description = "";
+    // Show OTP Verification modal
+    setShowOtpVerification(true);
+  };
 
-    if (transferType === "sameBank") {
-      description =
-        `ACC TRANSFER TO ${accountHolderName} ${receiverAccount} FROM ${myAccount}`
-          .slice(0, 50)
-          .toUpperCase();
-    } else {
-      description =
-        `ACC TRANSFER TO ${accountHolderName} ${receiverAccount} ${ifscCode}`
-          .slice(0, 50)
-          .toUpperCase();
-    }
+  const onOtpVerifySuccess = async () => {
+    // OTP is successfully verified; proceed with the transfer
+    setShowOtpVerification(false); // Close the OTP modal
+    setLoading(true);
 
-    setLoading(true); // Set loading to true before API calls
     try {
+      // Your existing transfer logic
+      let description = "";
+
+      if (transferType === "sameBank") {
+        description =
+          `ACC TRANSFER TO ${accountHolderName} ${receiverAccount} FROM ${myAccount}`
+            .slice(0, 50)
+            .toUpperCase();
+      } else {
+        description =
+          `ACC TRANSFER TO ${accountHolderName} ${receiverAccount} ${ifscCode}`
+            .slice(0, 50)
+            .toUpperCase();
+      }
+
       if (transferType === "sameBank") {
         try {
           await axios.post(
@@ -131,7 +143,6 @@ const MoneyTransfer = () => {
             setError("Receiver account not found in the same bank");
             return;
           } else {
-            console.error("Error processing credit transaction:", creditError);
             setError(
               "Transaction Failed , Please Check The Account Number or Account Details"
             );
@@ -159,15 +170,17 @@ const MoneyTransfer = () => {
         setResponse(debitResponse.data);
         setError(null);
       } catch (err) {
-        console.error("Error processing the transaction:", err);
         setError("Transaction failed: Insufficient Account Balance");
       }
     } catch (err) {
-      console.error("Error processing the transaction:", err);
       setError("Transaction failed");
     } finally {
       setLoading(false); // Set loading to false after API calls
     }
+  };
+
+  const handleOtpCancel = () => {
+    setShowOtpVerification(false);
   };
 
   pdfMake.vfs = pdfFonts.pdfMake.vfs;
@@ -239,6 +252,15 @@ const MoneyTransfer = () => {
     }
   };
 
+  const getEmailFromToken = () => {
+    const token = localStorage.getItem("token"); // or sessionStorage
+    if (token) {
+      const decodedToken = jwtDecode(token); // Decode the JWT token
+      return decodedToken.sub; // Extract the email (sub field)
+    }
+    return null; // If no token is present
+  };
+  const tokenEmail = getEmailFromToken();
   return (
     <div className="money-transfer">
       {loading ? (
@@ -391,6 +413,18 @@ const MoneyTransfer = () => {
             Transfer
           </button>
         </form>
+      )}
+      {showOtpVerification && (
+        <OtpVerification
+          OTP_reason={"Verify OTP For AmountTransaction"}
+          email={tokenEmail}
+          message={
+            "Please use this OTP for Amount Transaction. \nDo not share this OTP with anyone "
+          }
+          subject={"Your OTP for Transaction"}
+          onClose={handleOtpCancel}
+          onVerifySuccess={onOtpVerifySuccess}
+        />
       )}
     </div>
   );

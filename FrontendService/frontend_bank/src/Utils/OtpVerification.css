@@ -1,32 +1,78 @@
-.modal-overlay {
+/* OtpVerification.css */
+.otp-overlay {
   position: fixed;
   top: 0;
   left: 0;
-  right: 0;
-  bottom: 0;
-  background: rgba(0, 0, 0, 0.5);
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+  backdrop-filter: blur(5px); /* Blurred background effect */
   display: flex;
-  align-items: center;
   justify-content: center;
+  align-items: center;
+  z-index: 1000;
 }
 
-.modal-content {
-  background: white;
+.otp-modal {
+  background-color: white;
   padding: 20px;
-  border-radius: 8px;
-  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   max-width: 400px;
   width: 100%;
+  text-align: center;
 }
 
-.modal-content button {
-  margin: 10px;
-  padding: 10px;
+.spinner-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 20px 0;
+}
+
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-left-color: #09f;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.otp-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 10px; /* Space between buttons */
+  margin-top: 10px;
+}
+
+.otp-buttons button {
+  padding: 8px 16px;
   border: none;
-  border-radius: 5px;
+  border-radius: 4px;
   cursor: pointer;
 }
 
-.modal-content button:hover {
-  background-color: #ddd;
+.otp-buttons .verify-button {
+  background-color: #007bff; /* Blue background for Verify button */
+  color: white;
+}
+
+.otp-buttons .cancel-button {
+  background-color: #dc3545; /* Red background for Cancel button */
+  color: white;
+}
+
+.error-text {
+  color: red; /* Error messages in red */
+}
+
+.success-text {
+  color: green; /* Success message in green */
 }
