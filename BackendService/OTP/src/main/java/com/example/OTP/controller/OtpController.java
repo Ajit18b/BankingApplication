@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.HashMap;
 import java.util.Map;
 
-@CrossOrigin(origins = {"http://192.168.4.170:3000","http://localhost:3000"})
+@CrossOrigin(origins = {"http://192.168.4.170:3000","http://localhost:3000","http://192.168.29.30:3000"})
 @RestController
 @RequestMapping("/api/otp")
 public class OtpController {

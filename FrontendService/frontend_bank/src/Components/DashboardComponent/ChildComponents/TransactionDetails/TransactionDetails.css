@@ -1,97 +1,159 @@
+/* Transaction Details Styles */
 .transaction-details {
-    margin: 12px auto;
-    max-width: 1450px;
-    background-color: #f9f9f9;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    font-family: Arial, sans-serif;
+  margin: 12px auto;
+  max-width: 1450px;
+  background-color: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
 }
 
 .transaction-details h1 {
-    margin-bottom: 20px;
-    font-size: 24px;
-    color: #333;
-    text-align: center;
+  margin-bottom: 20px;
+  font-size: 24px;
+  color: #333;
+  text-align: center;
 }
 
 .transaction-list {
-    margin: 10px 0;
+  margin: 10px 0;
 }
 
 .transaction-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 18px;
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 18px;
 }
 
 .transaction-table th, .transaction-table td {
-    padding: 10px;
-    border: 1px solid #ccc;
+  padding: 10px;
+  border: 1px solid #ccc;
 }
 
 .transaction-table th {
-    background-color: #f2f2f2;
+  background-color: #f2f2f2;
 }
 
 .transaction-table td {
-    text-align: left;
+  text-align: left;
 }
 
 .transaction-table td:last-child {
-    text-align: right;
+  text-align: right;
 }
 
 .error-message {
-    color: #721c24;
-    background-color: #f8d7da;
-    padding: 10px;
-    border-radius: 4px;
-    text-align: center;
+  color: #721c24;
+  background-color: #f8d7da;
+  padding: 10px;
+  border-radius: 4px;
+  text-align: center;
 }
 
 .message {
-    text-align: center;
-    font-size: 18px;
-    color: #007bff;
+  text-align: center;
+  font-size: 18px;
+  color: #007bff;
 }
 
 .download-btn {
-    display: block;
-    margin: 20px auto;
-    padding: 10px 20px;
-    font-size: 16px;
-    color: #fff;
-    background-color: #007bff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  font-size: 16px;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.download-btn:hover {
+  background-color: #0056b3;
+}
+
+.filter-section {
+  display: flex;
+  align-items: center;
+  justify-content: space-between; /* Adjusts spacing between the fields */
+  gap: 10px; /* Add some space between each filter */
+}
+
+.date-filter,
+.type-filter {
+  display: flex;
+  align-items: center;
+}
+
+.date-filter label,
+.type-filter label {
+  margin-right: 5px;
+}
+
+input[type="date"],
+select {
+  padding: 5px;
+  margin-left: 5px;
+}
+
+/* Media Queries for Mobile Screens */
+@media (max-width: 768px) {
+  .transaction-details {
+    margin: 10px; /* Reduce margin for smaller screens */
+    padding: 15px; /* Reduce padding for compact design */
+    max-width: 100%; /* Ensure container takes full width */
   }
-  
-  .download-btn:hover {
-    background-color: #0056b3;
+
+  .transaction-details h1 {
+    font-size: 20px; /* Adjust font size for heading */
+    margin-bottom: 15px; /* Reduce margin for smaller screens */
   }
+
+  .transaction-table {
+    font-size: 16px; /* Adjust font size for table text */
+  }
+
+  .transaction-table th, .transaction-table td {
+    padding: 8px; /* Reduce padding for table cells */
+  }
+
+  .download-btn {
+    padding: 8px 15px; /* Reduce padding for button */
+    font-size: 14px; /* Adjust font size for button */
+  }
+
+  .error-message,
+  .message {
+    font-size: 14px; /* Adjust font size for error and message text */
+    padding: 8px; /* Reduce padding for messages */
+  }
+
   .filter-section {
-    display: flex;
-    align-items: center;
-    justify-content: space-between; /* Adjusts spacing between the fields */
-    gap: 10px; /* Add some space between each filter */
+    flex-direction: column; /* Stack filters vertically */
+    gap: 10px; /* Space between each filter */
   }
-  
+
   .date-filter,
   .type-filter {
-    display: flex;
-    align-items: center;
+    width: 100%; /* Ensure filters take full width */
   }
-  
-  .date-filter label,
-  .type-filter label {
-    margin-right: 5px;
+
+  .date-filter {
+    flex-direction: column; /* Stack date filter labels and inputs vertically */
   }
-  
-  input[type="date"],
-  select {
-    padding: 5px;
-    margin-left: 5px;
+
+  .date-filter label {
+    margin-right: 0; /* Remove margin for mobile screens */
+    margin-bottom: 5px; /* Add space between label and input */
   }
-  
+
+  input[type="date"] {
+    width: 100%; /* Adjust width to fit inside container */
+    margin-bottom: 10px; /* Add space between date inputs */
+  }
+
+  .type-filter {
+    margin-top: 10px; /* Add space above the type filter */
+  }
+}

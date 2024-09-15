@@ -1,4 +1,4 @@
-/* BankAccountDetails.css */
+/* BankAccountDetails Styles */
 .bank-account-details-container {
     margin: 50px auto;
     max-width: 1000px;
@@ -72,3 +72,39 @@
     justify-content: center;
 }
 
+/* Media Queries for Mobile Screens */
+@media (max-width: 768px) {
+    .bank-account-details-container {
+        margin: 20px; /* Reduce margin on smaller screens */
+        padding: 15px; /* Reduce padding for compact design */
+        max-width: 100%; /* Ensure container takes full width */
+    }
+
+    .bank-account-details-container h1 {
+        font-size: 20px; /* Adjust font size for heading */
+        margin-bottom: 15px; /* Reduce margin for smaller screens */
+    }
+
+    .account-details-table {
+        font-size: 16px; /* Adjust font size for table */
+    }
+
+    .account-details-table td {
+        padding: 8px; /* Reduce padding for table cells */
+    }
+
+    .account-details-table td:last-child {
+        padding-left: 10px; /* Adjust padding for last cell */
+    }
+
+    .error-message-text,
+    .admin-message-text {
+        font-size: 16px; /* Adjust font size for messages */
+        padding: 8px; /* Reduce padding for messages */
+    }
+
+    .eye-icon-button {
+        font-size: 10px; /* Smaller icon size for mobile */
+        padding: 3px; /* Reduce padding around the icon */
+    }
+}

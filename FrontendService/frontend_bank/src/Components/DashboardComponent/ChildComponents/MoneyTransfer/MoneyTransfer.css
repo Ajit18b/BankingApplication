@@ -1,7 +1,7 @@
+/* Money Transfer Styles */
 .money-transfer {
   margin: 50px auto;
   max-width: 1000px;
-  max-height: 1000px;
   background-color: #f9f9f9;
   padding: 20px;
   border-radius: 8px;
@@ -59,12 +59,12 @@ button:hover {
   border-radius: 4px;
   text-align: center;
 }
+
 .validation-error {
   color: red;
   font-size: 14px;
   margin-top: 5px;
 }
- 
 
 .success-icon-container {
   display: flex;
@@ -102,6 +102,55 @@ button:hover {
   text-align: center;
 }
 
+/* Media Queries for Mobile Screens */
+@media (max-width: 768px) {
+  .money-transfer {
+    margin: 20px; /* Reduce margin on smaller screens */
+    padding: 15px; /* Reduce padding for compact design */
+    max-width: 100%; /* Ensure container takes full width */
+  }
 
+  h1 {
+    font-size: 20px; /* Adjust font size for heading */
+    margin-bottom: 15px; /* Reduce margin for smaller screens */
+  }
 
+  label {
+    font-size: 16px; /* Adjust font size for labels */
+    margin-bottom: 8px; /* Reduce margin for labels */
+  }
 
+  input {
+    padding: 6px; /* Reduce padding for input fields */
+    font-size: 14px; /* Adjust font size for input fields */
+    margin-bottom: 15px; /* Reduce margin for input fields */
+  }
+
+  button {
+    padding: 8px; /* Reduce padding for button */
+    font-size: 14px; /* Adjust font size for button */
+  }
+
+  .error-message,
+  .validation-error {
+    font-size: 14px; /* Adjust font size for error messages */
+    padding: 8px; /* Reduce padding for error messages */
+  }
+
+  .success-icon {
+    width: 50px; /* Adjust size for success icon */
+    height: 50px; /* Adjust size for success icon */
+  }
+
+  .error-message-container {
+    align-items: center;
+  }
+
+  .error-icon {
+    margin-bottom: 6px; /* Adjust space between icon and message */
+  }
+
+  .error-message {
+    font-size: 14px; /* Adjust font size for error messages */
+  }
+}

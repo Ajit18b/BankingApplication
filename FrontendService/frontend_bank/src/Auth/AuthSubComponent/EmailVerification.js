@@ -1,5 +1,6 @@
 // src/components/AuthSubComponent/EmailVerification.js
 import React, { useState } from "react";
+import apiConfig from "../../apiConfig";
 
 const EmailVerification = ({ email, onVerify }) => {
   const [otp, setOtp] = useState("");
@@ -12,7 +13,7 @@ const EmailVerification = ({ email, onVerify }) => {
     setOtpMessage("");
 
     try {
-      const response = await fetch("http://192.168.4.170:8090/api/otp/verify", {
+      const response = await fetch(apiConfig.endpoints.sendOtpRequest_8090, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

@@ -1,3 +1,4 @@
+/* Profile Container Styles */
 .profile-container {
   margin: 20px auto;
   max-width: 500px;
@@ -7,6 +8,7 @@
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+/* Profile Table Styles */
 .profile-table {
   width: 100%;
   border-collapse: collapse;
@@ -24,9 +26,33 @@
 .profile-table td strong {
   color: #333;
 }
+
+/* Heading Styles */
 h2 {
   margin-bottom: 20px;
   font-size: 24px;
   color: #333;
   text-align: center; /* Center align the h2 element */
+}
+
+/* Media Queries for Mobile Screens */
+@media (max-width: 768px) {
+  .profile-container {
+    margin: 10px; /* Reduce margin on smaller screens */
+    padding: 15px; /* Reduce padding for compact design */
+    max-width: 100%; /* Ensure container takes full width */
+  }
+
+  .profile-table td {
+    padding: 6px; /* Reduce padding for table cells */
+  }
+
+  .profile-table td strong {
+    font-size: 0.9rem; /* Adjust font size for smaller screens */
+  }
+
+  h2 {
+    font-size: 20px; /* Adjust font size for heading */
+    margin-bottom: 15px; /* Reduce margin for smaller screens */
+  }
 }

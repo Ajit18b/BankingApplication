@@ -177,30 +177,31 @@ const AccountDeposit = () => {
           </label>
 
           <label>
-            Description:
-            <select
-              value={descriptionType}
-              onChange={(e) => setDescriptionType(e.target.value)}
-            >
-              <option value="CASH DEPOSIT">Cash Deposit</option>
-              <option value="NEFT">NEFT</option>
-              <option value="RTGS">RTGS</option>
-              <option value="CHEQUE DRAFT">Cheque</option>
-              <option value="OTHER">Other</option>
-            </select>
-          </label>
+  Description:
+  <select
+    value={descriptionType}
+    onChange={(e) => setDescriptionType(e.target.value)}
+  >
+    <option value="CASH DEPOSIT">Cash Deposit</option>
+    <option value="NEFT">NEFT</option>
+    <option value="RTGS">RTGS</option>
+    <option value="CHEQUE DRAFT">Cheque</option>
+    <option value="OTHER">Other</option>
+  </select>
+</label>
 
-          {descriptionType === "OTHER" && (
-            <label>
-              Custom Description:
-              <input
-                type="text"
-                value={customDescription}
-                onChange={(e) => setCustomDescription(e.target.value)}
-                required
-              />
-            </label>
-          )}
+{descriptionType === "OTHER" && (
+  <label>
+    Custom Description:
+    <input
+      type="text"
+      value={customDescription}
+      onChange={(e) => setCustomDescription(e.target.value.toUpperCase())}
+      required
+    />
+  </label>
+)}
+
 
           <button type="submit">Deposit</button>
         </form>

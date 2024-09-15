@@ -76,6 +76,7 @@ public class SecurityConfiguration {
                 registry.addMapping("/**")
                         .allowedOrigins("http://localhost:3000")
                         .allowedOrigins("http://192.168.4.170:3000")
+                        .allowedOrigins("http://192.168.29.30:3000")
                         .allowedMethods("*")
                         .allowedHeaders("*")
                         .allowCredentials(true);

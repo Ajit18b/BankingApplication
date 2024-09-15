@@ -4,8 +4,8 @@
   flex-direction: column;
   min-height: 100vh;
   margin: 0 auto; /* Center align the component horizontally */
-  max-width: 2200px; /* Constrain width to prevent overflowing */
-  /* padding: 0 20px; Add horizontal padding for spacing */
+  max-width: 2200px; /* Constrain width for larger screens */
+  padding: 0 20px; /* Horizontal padding for spacing */
 }
 
 /* Navbar Styles */
@@ -112,6 +112,8 @@
   align-items: center;
   justify-content: center;
   z-index: 1000; /* Ensure the popup is above other content */
+  padding: 20px; /* Add padding to avoid content touching edges */
+  box-sizing: border-box;
 }
 
 /* Popup Content Styles */
@@ -120,7 +122,9 @@
   padding: 20px;
   border-radius: 10px;
   max-width: 600px;
-  width: 90%;
+  width: 100%;
+  max-height: 90vh; /* Ensure the popup does not exceed viewport height */
+  overflow-y: auto; /* Enable vertical scrolling if content overflows */
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
   position: relative;
 }
@@ -139,6 +143,16 @@
 
 .close-btn:hover {
   color: #ff0000; /* Change color on hover */
+}
+
+/* Media Queries for Mobile Screens */
+@media (max-width: 768px) {
+  .popup-content {
+    max-width: 100%; /* Ensure popup takes full width on small screens */
+    width: 100%; /* Ensure popup width is 100% */
+    padding: 15px; /* Reduce padding for smaller screens */
+    max-height: 80vh; /* Adjust height to fit smaller screens */
+  }
 }
 
 /* Services Buttons Styles */
@@ -172,4 +186,54 @@
 
 .popup-content li {
   margin-bottom: 10px;
+}
+
+/* Media Queries for Small Screens */
+@media (max-width: 768px) {
+  .home {
+    padding: 0 10px; /* Reduce horizontal padding for smaller screens */
+  }
+
+  .navbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .nav-links a {
+    margin-right: 10px; /* Reduce margin for smaller screens */
+  }
+
+  .hero-section {
+    padding: 30px 15px; /* Adjusted padding for smaller screens */
+    margin: 10px 0; /* Reduced margin for smaller screens */
+  }
+
+  .hero-section h2 {
+    font-size: 2rem; /* Adjusted font size for smaller screens */
+    margin-bottom: 15px; /* Reduced margin */
+  }
+
+  .hero-section p {
+    font-size: 1rem; /* Adjusted font size for smaller screens */
+    margin-bottom: 20px; /* Reduced margin */
+  }
+
+  .cta-btn {
+    padding: 10px 20px; /* Adjusted padding for smaller screens */
+    font-size: 0.9rem; /* Adjusted font size */
+  }
+
+  .features {
+    flex-direction: column; /* Stack vertically on smaller screens */
+    gap: 20px; /* Space between feature cards */
+  }
+
+  .feature-card {
+    flex: 1 1 100%; /* Full width for feature cards on smaller screens */
+    padding: 15px; /* Adjusted padding for smaller screens */
+  }
+
+  .close-btn {
+    font-size: 1.2rem; /* Adjusted font size */
+  }
 }

@@ -1,4 +1,4 @@
-/* Header container styling */
+/* General Header Styling */
 .header {
   background-color: #0162e1d8;
   color: white;
@@ -10,24 +10,27 @@
   z-index: 1000;
   display: flex;
   align-items: center;
+  padding: 0 20px;
+  box-sizing: border-box;
 }
 
-/* Header container and logo styling */
+/* Container Styling */
 .header-container {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  padding: 0 20px;
 }
 
+/* Logo Styling */
 .header-logo a {
   color: white;
   text-decoration: none;
   font-size: 24px;
+  white-space: nowrap; /* Prevents text wrapping */
 }
 
-/* Menu button styling */
+/* Menu Button Styling */
 .menu-button {
   background: none;
   border: none;
@@ -35,38 +38,43 @@
   font-size: 30px;
   cursor: pointer;
 }
-/* profile */
-.profile{
-  background: none; /* No background color initially */
-  color: white; /* Text color */
-  cursor: pointer; /* Pointer cursor on hover */
-  margin-right: -1000px; /* Right margin */
-  margin-left: auto;
+
+/* Profile Styling */
+.profile {
+  color: white;
+  cursor: pointer;
+  margin-left: auto; /* Push to the right */
+  display: flex;
+  align-items: center;
 }
 
-/* Logout button styling */
+/* Profile Icon */
+.profile svg {
+  width: 40px;
+  height: 40px;
+  margin-left: 10px;
+}
+
+/* Logout Button Styling */
 .logout-button {
-  background: none; /* No background color initially */
-  border: 2px solid white; /* White border */
-  color: white; /* Text color */
-  font-size: 18px; /* Font size */
-  cursor: pointer; /* Pointer cursor on hover */
-  margin-left: auto; /* Aligns the button to the right */
-  margin-right: 20px; /* Right margin */
-  padding: 10px 20px; /* Padding for the button */
-  border-radius: 5px; /* Rounded corners */
-  transition: background-color 0.3s, color 0.3s; /* Smooth transition */
+  background: none;
+  border: 2px solid white;
+  color: white;
+  font-size: 18px;
+  cursor: pointer;
+  padding: 10px 20px;
+  border-radius: 5px;
+  margin-left: 15px;
+  transition: background-color 0.3s, color 0.3s;
 }
 
-
-/* Logout button hover effect */
+/* Logout Button Hover */
 .logout-button:hover {
-  background-color: rgba(255, 255, 255, 0.774); /* Light background on hover */
-  color: black; /* Change text color on hover for contrast */
+  background-color: rgba(255, 255, 255, 0.774);
+  color: black;
 }
 
-
-/* Sidebar styling */
+/* Sidebar Styling */
 .sidebar {
   position: fixed;
   top: 0;
@@ -78,20 +86,21 @@
   box-shadow: 2px 0 5px rgba(0, 0, 0, 0.5);
   transition: left 0.3s ease;
   z-index: 1100;
-  overflow: hidden;
+  overflow-y: auto; /* Allow scrolling if needed */
 }
 
 .sidebar.open {
   left: 0;
 }
 
+/* Sidebar List */
 .sidebar ul {
   list-style-type: none;
   padding: 0;
 }
 
 .sidebar ul li {
-  margin: 2; 
+  margin: 10px 0; /* Provide spacing between items */
 }
 
 .sidebar ul li a {
@@ -99,22 +108,16 @@
   text-decoration: none;
   font-size: 18px;
   padding: 8px 15px;
-  border: 2px solid transparent;
   border-radius: 5px;
   display: block;
-  width: 100%; /* Full width of the sidebar */
-  box-sizing: border-box; /* Include padding and border in the element's total width and height */
-  transition: background-color 0.3s, border-color 0.3s;
+  transition: background-color 0.3s;
 }
 
 .sidebar ul li a:hover {
   background-color: rgba(255, 255, 255, 0.1);
-  border-color: rgba(255, 255, 255, 0.3);
 }
 
-
-
-/* Backdrop styling */
+/* Backdrop Styling */
 .backdrop {
   position: fixed;
   top: 0;
@@ -123,4 +126,51 @@
   height: 100%;
   background: rgba(0, 0, 0, 0.5);
   z-index: 1000;
+}
+
+/* Media Queries for Responsiveness */
+@media (max-width: 768px) {
+  .header-container {
+    flex-direction: row; /* Adjust flex direction for smaller screens */
+    align-items: center;
+  }
+
+  .menu-button {
+    font-size: 25px;
+  }
+
+  .profile {
+    font-size: 14px;
+    margin-left: 10px;
+  }
+
+  .logout-button {
+    font-size: 14px;
+    padding: 8px 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  /* Ensure icons and text fit well on smaller screens */
+  .header-logo a {
+    font-size: 18px;
+  }
+
+  .menu-button {
+    font-size: 20px;
+  }
+
+  .profile svg {
+    width: 30px;
+    height: 30px;
+  }
+
+  .logout-button {
+    font-size: 12px;
+    padding: 5px 10px;
+  }
+
+  .sidebar {
+    width: 200px; /* Adjust sidebar width for mobile */
+  }
 }

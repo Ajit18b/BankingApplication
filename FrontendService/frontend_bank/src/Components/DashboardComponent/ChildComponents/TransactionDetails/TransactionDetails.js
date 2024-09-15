@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
-import { jwtDecode } from "jwt-decode";
+import {jwtDecode} from "jwt-decode";
 import jsPDF from "jspdf";
 import html2canvas from "html2canvas";
 import "./TransactionDetails.css";
@@ -10,10 +10,10 @@ const TransactionDetails = () => {
   const [transactions, setTransactions] = useState([]);
   const [totalAmount, setTotalAmount] = useState(0);
   const [error, setError] = useState(null);
-  const [accountNumber, setAccountNumber] = useState(""); // Set this with actual account number
+  const [accountNumber, setAccountNumber] = useState("");
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [transactionType, setTransactionType] = useState("ALL"); // ALL, CREDIT, DEBIT
+  const [transactionType, setTransactionType] = useState("ALL");
 
   useEffect(() => {
     const token = localStorage.getItem("token");
@@ -49,18 +49,15 @@ const TransactionDetails = () => {
 
   useEffect(() => {
     if (!accountNumber) return;
+
     const fetchFilteredTransactions = (transactions) => {
       return transactions.filter((txn) => {
         const txnDate = new Date(txn.date);
-        const start = startDate
-          ? new Date(startDate + "T00:00:00")
-          : new Date(0); // Start of the day for startDate
-        const end = endDate ? new Date(endDate + "T23:59:59") : new Date(); // End of the day for endDate
+        const start = startDate ? new Date(`${startDate}T00:00:00`) : new Date(0);
+        const end = endDate ? new Date(`${endDate}T23:59:59`) : new Date();
 
         const isWithinDateRange = txnDate >= start && txnDate <= end;
-
-        const isMatchingType =
-          transactionType === "ALL" || txn.type === transactionType;
+        const isMatchingType = transactionType === "ALL" || txn.type === transactionType;
 
         return isWithinDateRange && isMatchingType;
       });
@@ -69,7 +66,7 @@ const TransactionDetails = () => {
     const fetchTransactions = async () => {
       try {
         const response = await axios.get(
-          `${apiConfig.endpoints.userTransactionDetails_8100 + accountNumber}`,
+          `${apiConfig.endpoints.userTransactionDetails_8100}${accountNumber}`,
           {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
@@ -81,13 +78,10 @@ const TransactionDetails = () => {
           (a, b) => new Date(b.date) - new Date(a.date)
         );
 
-        // Apply filters (date and type)
-        const filteredTransactions =
-          fetchFilteredTransactions(sortedTransactions);
+        const filteredTransactions = fetchFilteredTransactions(sortedTransactions);
 
         setTransactions(filteredTransactions);
 
-        // Calculate total amount for the filtered transactions
         const total = filteredTransactions.reduce((sum, txn) => {
           return txn.type === "CREDIT" ? sum + txn.amount : sum - txn.amount;
         }, 0);
@@ -106,7 +100,7 @@ const TransactionDetails = () => {
   const formatDate = (dateString) => {
     const date = new Date(dateString);
     const day = String(date.getDate()).padStart(2, "0");
-    const month = String(date.getMonth() + 1).padStart(2, "0"); // Months are zero-indexed
+    const month = String(date.getMonth() + 1).padStart(2, "0");
     const year = date.getFullYear();
     const hours = String(date.getHours()).padStart(2, "0");
     const minutes = String(date.getMinutes()).padStart(2, "0");
@@ -120,8 +114,8 @@ const TransactionDetails = () => {
     html2canvas(input).then((canvas) => {
       const imgData = canvas.toDataURL("image/png");
       const pdf = new jsPDF("p", "mm", "a4");
-      const imgWidth = 210; // A4 width in mm
-      const pageHeight = 295; // A4 height in mm
+      const imgWidth = 210;
+      const pageHeight = 295;
       const imgHeight = (canvas.height * imgWidth) / canvas.width;
       let heightLeft = imgHeight;
 
@@ -195,9 +189,7 @@ const TransactionDetails = () => {
                       <td>{`${formatDate(txn.date)} - ${txn.description}`}</td>
                       <td>{txn.type}</td>
                       <td>
-                        {txn.type === "CREDIT"
-                          ? `+₹${txn.amount}`
-                          : `-₹${txn.amount}`}
+                        {txn.type === "CREDIT" ? `+₹${txn.amount}` : `-₹${txn.amount}`}
                       </td>
                     </tr>
                   ))

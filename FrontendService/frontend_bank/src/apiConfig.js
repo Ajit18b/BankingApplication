@@ -1,5 +1,7 @@
-const URL_ID = "localhost";
+// const URL_ID = "localhost";
 // const URL_ID = "192.168.4.170";
+const URL_ID = "192.168.29.30";
+
 const API_BASE_URL_8080 = `http://${URL_ID}:8080`;
 const API_BASE_URL_8090 = `http://${URL_ID}:8090`;
 const API_BASE_URL_8100 = `http://${URL_ID}:8100`;
