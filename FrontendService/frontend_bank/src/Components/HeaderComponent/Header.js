@@ -4,8 +4,10 @@ import { Link, useNavigate } from "react-router-dom";
 import { jwtDecode } from "jwt-decode"; // Correct import
 import { useSidebar } from "../../Utils/SidebarContext";
 import "./Header.css";
+import LoadingSpinner from "../../Utils/LoadingSpinner";
 
 const Header = () => {
+  const [isLoading, setIsLoading] = useState(false); // State to control loading spinner
   const { isSidebarOpen, toggleSidebar } = useSidebar();
   const [userType, setUserType] = useState("USER"); // Default to USER
   const navigate = useNavigate();
@@ -25,11 +27,16 @@ const Header = () => {
   }, []);
 
   const handleLogout = () => {
+    setIsLoading(true); // Start showing the loading spinner
+
     // Clear the token from localStorage or any other storage
     localStorage.removeItem("token");
 
-    // Redirect to the login page or any other page
-    navigate("/", { replace: true }); // Use replace to clear history
+    // Add a small delay before navigating away to ensure the spinner shows
+    setTimeout(() => {
+      navigate("/", { replace: true }); // Redirect after a small delay
+      setIsLoading(false); // Stop showing the loading spinner
+    }, 2000); // 1-second delay (adjust as needed)
   };
 
   return (
@@ -124,6 +131,7 @@ const Header = () => {
       {isSidebarOpen && (
         <div className="backdrop" onClick={toggleSidebar}></div>
       )}
+      {isLoading && <LoadingSpinner />}
     </header>
   );
 };

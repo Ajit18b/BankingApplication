@@ -3,6 +3,7 @@ import "./AdminControlsAccountCreation.css"; // Optional CSS file for styling
 import axios from "axios"; // Import axios for making HTTP requests
 import jsPDF from "jspdf"; // Import jsPDF for generating PDFs
 import apiConfig from "../../../../apiConfig";
+import LoadingSpinner from "../../../../Utils/LoadingSpinner";
 
 const AdminControlsAccountCreation = () => {
   const [email, setEmail] = useState("");
@@ -12,19 +13,19 @@ const AdminControlsAccountCreation = () => {
   const [isError, setIsError] = useState(false); // To track if the response is an error
   const [newApiResponse, setNewApiResponse] = useState(null); // New state for second API response
 
-  // Function to handle form submission
+  const [isLoading, setIsLoading] = useState(false); // State to control loading spinner
+
   const handleSubmit = async (event) => {
     event.preventDefault();
+    setIsLoading(true); // Show the loading spinner when API call starts
 
-    // Retrieve the token from local storage
     const token = localStorage.getItem("token");
-    console.log("Token:", token); // Debug: Check token
+    console.log("Token:", token);
 
     try {
-      // First API call for account registration
       const response = await axios.post(
         apiConfig.endpoints.accountGenerationByAdmin_8080,
-        { email, name }, // Include name in the payload
+        { email, name },
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -33,32 +34,27 @@ const AdminControlsAccountCreation = () => {
         }
       );
 
-      // Handle the successful response
-      const accountNumber = response.data.accountNumber; // Extract account number from response
-      setResponseData(response.data); // Save the response data
+      const accountNumber = response.data.accountNumber;
+      setResponseData(response.data);
       setResponseMessage("Account registered successfully!");
       setIsError(false);
 
-      // Register with the new API
       if (accountNumber) {
         await registerAccountWithNewApi(accountNumber);
       }
 
-      // Generate PDF certificate
       generatePDF(response.data);
     } catch (error) {
       console.error("Error details:", error);
 
       if (error.response) {
         const { status, data } = error.response;
-        console.error(`Error response status: ${status}`, data);
-
         setResponseMessage(
           data.message ||
             `Error: ${status} Email and account number already registered`
         );
         setIsError(true);
-        setResponseData(null); // Clear the response data in case of an error
+        setResponseData(null);
       } else if (error.request) {
         setResponseMessage("No response received from the server");
         setIsError(true);
@@ -66,6 +62,8 @@ const AdminControlsAccountCreation = () => {
         setResponseMessage(`An unexpected error occurred: ${error.message}`);
         setIsError(true);
       }
+    } finally {
+      setIsLoading(false); // Hide the loading spinner after API call completes
     }
   };
 
@@ -227,6 +225,8 @@ const AdminControlsAccountCreation = () => {
         </div>
         <button type="submit">Generate Bank Account</button>
       </form>
+      {isLoading && <LoadingSpinner />}
+      {/* Display spinner during loading */}
       {responseMessage && (
         <div className={`response-message ${isError ? "error" : "success"}`}>
           {responseMessage}
@@ -257,9 +257,28 @@ const AdminControlsAccountCreation = () => {
         </div>
       )}
       {newApiResponse && (
-        <div className="new-api-response">
-          <h3>New API Response</h3>
-          <pre>{JSON.stringify(newApiResponse, null, 2)}</pre>
+        <div className="new-api-response-box">
+          <h3 className="response-title">
+            Initial Account Transaction Details
+          </h3>
+          <div className="response-box-content">
+            <div className="response-item">
+              <span className="response-label">Transaction ID:</span>
+              <span className="response-value">{newApiResponse.id}</span>
+            </div>
+            <div className="response-item">
+              <span className="response-label">Account Number:</span>
+              <span className="response-value">
+                {newApiResponse.accountNumber}
+              </span>
+            </div>
+            <div className="response-item">
+              <span className="response-label">Total Amount:</span>
+              <span className="response-value">
+                {newApiResponse.totalAmount}
+              </span>
+            </div>
+          </div>
         </div>
       )}
     </div>

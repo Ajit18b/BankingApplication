@@ -95,3 +95,56 @@ button:hover {
 .response-table td:last-child {
   font-weight: normal;
 }
+
+
+
+
+
+
+
+
+.new-api-response-box {
+  background-color: #f5f5f5; /* Light gray background */
+  border-radius: 8px; /* Rounded corners */
+  padding: 20px; /* Padding inside the box */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+  margin-top: 20px; /* Space above the response box */
+  max-width: 600px; /* Set a max width for better presentation */
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.response-title {
+  font-size: 20px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.response-box-content {
+  display: flex;
+  flex-direction: column;
+  gap: 15px; /* Space between each response item */
+}
+
+.response-item {
+  display: flex;
+  justify-content: space-between; /* Space out the label and value */
+  background-color: #fff; /* White background for each box */
+  padding: 12px;
+  border-radius: 6px;
+  border: 1px solid #ddd; /* Border around each item */
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05); /* Small shadow for each box */
+}
+
+.response-label {
+  font-weight: bold;
+  color: #555;
+}
+
+.response-value {
+  font-size: 16px;
+  color: #333;
+  font-family: 'Arial', sans-serif;
+}

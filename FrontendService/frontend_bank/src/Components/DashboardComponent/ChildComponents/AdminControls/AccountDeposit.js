@@ -4,6 +4,7 @@ import pdfMake from "pdfmake/build/pdfmake";
 import pdfFonts from "pdfmake/build/vfs_fonts";
 import "./AccountDeposit.css";
 import apiConfig from "../../../../apiConfig";
+import LoadingSpinner from "../../../../Utils/LoadingSpinner";
 
 const AccountDeposit = () => {
   const [accountNumber, setAccountNumber] = useState("");
@@ -13,9 +14,11 @@ const AccountDeposit = () => {
   const [response, setResponse] = useState(null);
   const [error, setError] = useState(null);
   const [validationErrors, setValidationErrors] = useState({});
+  const [isLoading, setIsLoading] = useState(false); // State to control loading spinner
 
   // Validate form before submission
   const validateForm = () => {
+    setIsLoading(true);
     const accountNumberRegex = /^\d+$/; // Only numeric values
     let errors = {};
 
@@ -61,6 +64,8 @@ const AccountDeposit = () => {
     } catch (err) {
       console.error("Error processing the transaction:", err);
       setError("Transaction failed. Please check the details and try again.");
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -163,7 +168,7 @@ const AccountDeposit = () => {
           </label>
 
           <label>
-            Amount:
+            Amount ₹ :
             <input
               type="number"
               value={amount}
@@ -177,35 +182,37 @@ const AccountDeposit = () => {
           </label>
 
           <label>
-  Description:
-  <select
-    value={descriptionType}
-    onChange={(e) => setDescriptionType(e.target.value)}
-  >
-    <option value="CASH DEPOSIT">Cash Deposit</option>
-    <option value="NEFT">NEFT</option>
-    <option value="RTGS">RTGS</option>
-    <option value="CHEQUE DRAFT">Cheque</option>
-    <option value="OTHER">Other</option>
-  </select>
-</label>
+            Description:
+            <select
+              value={descriptionType}
+              onChange={(e) => setDescriptionType(e.target.value)}
+            >
+              <option value="CASH DEPOSIT">Cash Deposit</option>
+              <option value="NEFT">NEFT</option>
+              <option value="RTGS">RTGS</option>
+              <option value="CHEQUE DRAFT">Cheque</option>
+              <option value="OTHER">Other</option>
+            </select>
+          </label>
 
-{descriptionType === "OTHER" && (
-  <label>
-    Custom Description:
-    <input
-      type="text"
-      value={customDescription}
-      onChange={(e) => setCustomDescription(e.target.value.toUpperCase())}
-      required
-    />
-  </label>
-)}
-
+          {descriptionType === "OTHER" && (
+            <label>
+              Custom Description:
+              <input
+                type="text"
+                value={customDescription}
+                onChange={(e) =>
+                  setCustomDescription(e.target.value.toUpperCase())
+                }
+                required
+              />
+            </label>
+          )}
 
           <button type="submit">Deposit</button>
         </form>
       )}
+      {isLoading && <LoadingSpinner />}
     </div>
   );
 };
